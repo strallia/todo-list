@@ -1,1 +1,1 @@
-import { createTodo } from "./todo/todo.js";
+import { createTodo } from "./todo.js";
