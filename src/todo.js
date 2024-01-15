@@ -1,5 +1,3 @@
-const todoList = [];
-
 class TodoItem {
   constructor(title, dueDate, note, priority, status = 'open') {
     this.title = title;
@@ -27,8 +25,18 @@ class TodoItem {
   }
 }
 
-function createTodo(title, dueDate, note, priority) {
-  return new TodoItem(title, dueDate, note, priority);
+const todoList = [
+  createTodo(
+    'My First Todo Item',
+    '1/27',
+    'Add notes here',
+    'high',
+    'open'
+    )
+];
+
+function createTodo(title, dueDate, note, priority, status) {
+  return new TodoItem(title, dueDate, note, priority, status);
 }
 
 export { createTodo };

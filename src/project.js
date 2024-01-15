@@ -1,5 +1,3 @@
-const projectList = [];
-
 class ProjectItem {
   constructor(title, description) {
     this.title = title;
@@ -20,19 +18,14 @@ class ProjectItem {
   }
 }
 
+const projectList = [
+  createProject(
+    "My Todo's", 
+    "Project containing all my todo's")
+];
+
 function createProject(title, description) {
   return new ProjectItem(title, description);
 }
 
 export { projectList };
-
-const project1 = createProject('proj1', 'hello');
-const project2 = createProject('proj2', 'hello');
-
-project1.addToList();
-project2.addToList();
-
-console.table(projectList);
-
-project2.edit('description', 'new proj2');
-console.table(projectList);
