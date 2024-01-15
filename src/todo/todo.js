@@ -1,11 +1,12 @@
 const todoList = [];
 
 class todoItem{
-  constructor(title, dueDate, note, priority) {
+  constructor(title, dueDate, note, priority, status = 'open') {
     this.title = title;
     this.dueDate = dueDate;
     this.note = note;
     this.priority = priority;
+    this.status = status;
   }
 
   addToList() {
@@ -19,6 +20,10 @@ class todoItem{
 
   edit(property, string) {
     this[property] = string;
+  }
+
+  toggleStatus() {
+    this.status = this.status === 'open' ? 'closed' : 'open';
   }
 }
 
