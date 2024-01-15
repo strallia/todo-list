@@ -7,6 +7,10 @@ class todoItem{
     this.note = note;
     this.priority = priority;
   }
+
+  edit(property, string) {
+    this[property] = string;
+  }
 }
 
 function createTodo(title, dueDate, note, priority) {
