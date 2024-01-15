@@ -8,6 +8,11 @@ class todoItem{
     this.priority = priority;
   }
 
+  removeFromList() {
+    const index = todoList.indexOf(this);
+    todoList.splice(index, 1);
+  }
+
   edit(property, string) {
     this[property] = string;
   }
@@ -19,10 +24,6 @@ function createTodo(title, dueDate, note, priority) {
 
 function addToList(obj) {
   todoList.push(obj);
-}
-
-function removeFromList(index) {
-  todoList.splice(index, 1);
 } 
 
 export { createTodo };
