@@ -8,6 +8,10 @@ class todoItem{
     this.priority = priority;
   }
 
+  addToList() {
+    todoList.push(this);
+  } 
+
   removeFromList() {
     const index = todoList.indexOf(this);
     todoList.splice(index, 1);
@@ -21,9 +25,5 @@ class todoItem{
 function createTodo(title, dueDate, note, priority) {
   return new todoItem(title, dueDate, note, priority);
 }
-
-function addToList(obj) {
-  todoList.push(obj);
-} 
 
 export { createTodo };
