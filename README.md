@@ -1,3 +1,5 @@
-# Project
+# Todo List
 
-# Purpose 
+# Purpose
+
+Practice object oriented programming principles: SOLID principles with a focus on Single Responsibility and Loosely Coupled Objects. 
