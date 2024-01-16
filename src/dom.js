@@ -2,6 +2,7 @@ import { createProject, currentProject, projectList } from "./project";
 import { createTodo } from "./todo";
 import { findTodosForCurrentProject } from "./controller";
 
+
 // PROJECT LIST
 const projectsDiv = document.querySelector('.projects');
 
@@ -13,29 +14,28 @@ function displayProjectTabs() {
     tab.setAttribute('data-index', projectList.indexOf(project));
     tab.setAttribute('data-status', '');
     tab.textContent = project.title;
-    tab.onclick = (event) => {handleProjectTabClick(event)};
+    tab.onclick = (event) => {
+      renderOpenProject(event.target)
+    };
     projectsDiv.appendChild(tab);
   };
 }
 
-function handleProjectTabClick(event) {
-  const selectedProject = event.target;
-  colorSelectedTab(selectedProject);
-
-  // set current project
-  const selectedProjectIndex = selectedProject.getAttribute('data-index');
-  projectList[selectedProjectIndex].setAsCurrentProject();
-
-  // re-display todo tabs
-  displayTodoTabs();
-}
-
-function colorSelectedTab(selectedTab) {
+function colorProjectTab(projectNode) {
   const allProjectTabs = document.querySelectorAll('.projects > *');
   for (const tab of allProjectTabs) {
     tab.setAttribute('data-status', '');
   }
-  selectedTab.setAttribute('data-status', 'open');
+  projectNode.setAttribute('data-status', 'open');
+}
+
+function renderOpenProject(projectNode) {
+  // set current project
+  const selectedProjectIndex = projectNode.getAttribute('data-index');
+  projectList[selectedProjectIndex].setAsCurrentProject();
+  
+  colorProjectTab(projectNode);
+  displayTodoTabs();
 }
 
 
@@ -72,11 +72,21 @@ const projectDescriptionInput = document.querySelector(".add-project textarea");
 const submitProjectBtn = document.querySelector(".add-project button[type='submit']");
 submitProjectBtn.onclick = (event) => {
   event.preventDefault();
+
+  // create instance of new project
   const title = projectTitleInput.value;
   const description = projectDescriptionInput.value;
   const newProject = createProject(title, description);
   newProject.addToList();
+
+  // re-display project tabs
   displayProjectTabs();
+
+  // set visuals for opening newly added project
+  const indexOfNewProject = projectList.length - 1;
+  const nodeOfNewProject = document.querySelector(`[data-index="${indexOfNewProject}"]`);
+  renderOpenProject(nodeOfNewProject);
+
   projectForm.reset();
   projectDialog.close(); 
 }
@@ -115,4 +125,8 @@ resetTodoBtn.onclick = () => {
 };
 
 
-export { displayProjectTabs, displayTodoTabs, colorSelectedTab };
+export { 
+  displayProjectTabs, 
+  displayTodoTabs, 
+  colorProjectTab
+};

@@ -2,12 +2,12 @@ import "./todo.js";
 import "./project.js";
 import './styles.css';
 import { 
-  colorSelectedTab,
+  colorProjectTab,
   displayProjectTabs, 
   displayTodoTabs, 
 } from "./dom.js";
 
 // RENDER DEFAULT UI
 displayProjectTabs();
-colorSelectedTab(document.querySelector('.projects div:first-of-type'));
+colorProjectTab(document.querySelector('.projects div:first-of-type'));
 displayTodoTabs();
