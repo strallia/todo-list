@@ -18,35 +18,40 @@ function displayProjectTabs() {
 
 function handleProjectTabClick(event) {
   const selectedProject = event.target;
-  const projectTitle = selectedProject.textContent;
-
-  // re-display project tabs
-  if (projectTitle === "All My Todo's") {
-    displayTodoTabs();
-  } else {
-    const filteredTodoList = todoList.filter((item) => {
-      return item.project === projectTitle;
-    });
-    displayTodoTabs(filteredTodoList);
-  }
 
   // set current project
   const selectedProjectIndex = selectedProject.getAttribute('data-index');
   projectList[selectedProjectIndex].setAsCurrentProject();
+
+  // re-display todo tabs
+  displayTodoTabs();
 }
 
 
 // TODO LIST
 const todosDiv = document.querySelector('.todos');
 
-function displayTodoTabs(listArr = todoList) {
+function displayTodoTabs() {
   todosDiv.textContent = '';
-  for (const todo of listArr) {
+  const currentTodos = findTodosForCurrentProject();
+  for (const todo of currentTodos) {
     const tab = document.createElement('div');
     tab.classList.add('tab');
     tab.textContent = todo.title;
     todosDiv.appendChild(tab);
   };
+}
+
+function findTodosForCurrentProject() {
+  const projectTitle = currentProject.title;
+  if (projectTitle === "All My Todo's") {
+    return todoList;
+  } else {
+    const filteredTodoList = todoList.filter((item) => {
+      return item.project === projectTitle;
+    });
+    return filteredTodoList;
+  }
 }
 
 
