@@ -58,4 +58,4 @@ const todoList = [
   ),
 ];
 
-export { todoList };
+export { todoList, createTodo };

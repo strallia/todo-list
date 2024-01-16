@@ -40,4 +40,4 @@ const projectList = [
 
 let currentProject = projectList[0];
 
-export { projectList, createProject };
+export { projectList, createProject, currentProject };
