@@ -1,5 +1,6 @@
 import { createProject, currentProject, projectList } from "./project";
-import { createTodo, todoList } from "./todo";
+import { createTodo } from "./todo";
+import { findTodosForCurrentProject } from "./controller";
 
 // PROJECT LIST
 const projectsDiv = document.querySelector('.projects');
@@ -19,8 +20,6 @@ function displayProjectTabs() {
 
 function handleProjectTabClick(event) {
   const selectedProject = event.target;
-
-  // set bg color of selected tab
   colorSelectedTab(selectedProject);
 
   // set current project
@@ -45,25 +44,13 @@ const todosDiv = document.querySelector('.todos');
 
 function displayTodoTabs() {
   todosDiv.textContent = '';
-  const currentTodos = findTodosForCurrentProject();
-  for (const todo of currentTodos) {
+  const todos = findTodosForCurrentProject();
+  for (const todo of todos) {
     const tab = document.createElement('div');
     tab.classList.add('tab');
     tab.textContent = todo.title;
     todosDiv.appendChild(tab);
   };
-}
-
-function findTodosForCurrentProject() {
-  const projectTitle = currentProject.title;
-  if (projectTitle === "All My Todo's") {
-    return todoList;
-  } else {
-    const filteredTodoList = todoList.filter((item) => {
-      return item.project === projectTitle;
-    });
-    return filteredTodoList;
-  }
 }
 
 
