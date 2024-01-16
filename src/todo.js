@@ -1,5 +1,6 @@
 class TodoItem {
-  constructor(title, dueDate, note, priority, status = 'open') {
+  constructor(project, title, dueDate, note, priority, status = 'open') {
+    this.project = project;
     this.title = title;
     this.dueDate = dueDate;
     this.note = note;
@@ -25,8 +26,14 @@ class TodoItem {
   }
 }
 
+function createTodo(project, title, dueDate, note, priority, status) {
+  return new TodoItem(project, title, dueDate, note, priority, status);
+}
+
+// An array of TodoItem instances
 const todoList = [
   createTodo(
+    'Default Project',
     'My First Todo Item',
     '1/27',
     'Add notes here',
@@ -35,8 +42,6 @@ const todoList = [
     )
 ];
 
-function createTodo(title, dueDate, note, priority, status) {
-  return new TodoItem(title, dueDate, note, priority, status);
-}
-
 export { createTodo };
+
+console.log(todoList);
