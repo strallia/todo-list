@@ -33,16 +33,24 @@ function createTodo(project, title, dueDate, note, priority, status) {
 // An array of TodoItem instances
 const todoList = [
   createTodo(
-    'Default Project',
-    'My First Todo Item',
+    "All My Todo's",
+    'Todo that belongs only in "All My Todos"',
     '1/27',
     'Add notes here',
     'high',
     'open'
   ),
   createTodo(
-    'Default Project',
-    'My Second Todo Item',
+    'Another Project',
+    'First Todo Item for "Another Project"',
+    '1/30',
+    'Add notes here',
+    'medium',
+    'open'
+  ),
+  createTodo(
+    'Another Project',
+    'Second Todo Item for "Another Project"',
     '1/30',
     'Add notes here',
     'medium',

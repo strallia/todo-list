@@ -9,16 +9,27 @@ function displayProjectTabs() {
     const tab = document.createElement('div');
     tab.classList.add('tab');
     tab.textContent = project.title;
+    tab.onclick = (event) => {handleProjectTabClick(event)};
     projectsDiv.appendChild(tab);
   };
+}
+
+function handleProjectTabClick(event) {
+  const projectTitle = event.target.textContent;
+  const filteredTodoList = todoList.filter((item) => {
+    return item.project === projectTitle;
+  });
+  displayTodoTabs(filteredTodoList);
 }
 
 
 // TODOS
 const todosDiv = document.querySelector('.todos');
 
-function displayTodoTabs() {
-  for (const todo of todoList) {
+function displayTodoTabs(listArr = todoList) {
+  todosDiv.textContent = '';
+
+  for (const todo of listArr) {
     const tab = document.createElement('div');
     tab.classList.add('tab');
     tab.textContent = todo.title;
