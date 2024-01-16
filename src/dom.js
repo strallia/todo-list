@@ -47,8 +47,15 @@ function displayTodoTabs() {
   const todos = findTodosForCurrentProject();
   for (const todo of todos) {
     const tab = document.createElement('div');
+    const deleteBtn = document.createElement('button');
+
     tab.classList.add('tab');
+    deleteBtn.classList.add('delete');
+
     tab.textContent = todo.title;
+    deleteBtn.textContent = 'X';
+
+    tab.appendChild(deleteBtn)
     todosDiv.appendChild(tab);
   };
 }

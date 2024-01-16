@@ -49,6 +49,8 @@ div.todos {
   > .tab {
     background-color: lightgoldenrodyellow;
     border: 1px dashed orange;
+    display: flex;
+    justify-content: space-between;
   }
 }
 
