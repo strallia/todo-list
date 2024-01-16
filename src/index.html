@@ -19,8 +19,16 @@
   </div>
   <dialog class="add-project">
     <form>
-      <input id="title" type="text" name="title" placeholder="Project Name">
-      <button>Add Project</button>
+      <div>
+        <label for="title">Title</label>
+        <input id="title" type="text" name="title">
+      </div>
+      <div>
+        <label for="description">Description</label>
+        <textarea id="description" name="description"></textarea>
+      </div>
+      <button type="submit">Submit</button>
+      <button type="reset">Close</button>
     </form>
   </dialog>
   <footer>
