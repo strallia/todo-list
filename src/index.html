@@ -8,9 +8,21 @@
 <body>
   <header>Todo List</header>
   <div class="content">
-    <div class="projects"></div>
-    <div class="todos"></div>
+    <div class="container">
+      <div class="projects"></div>
+      <button class="add-project">Add Project</button>
+    </div>
+    <div class="container">
+      <div class="todos"></div>
+      <button class="add-todo">Add Todo</button>
+    </div>
   </div>
+  <dialog class="add-project">
+    <form>
+      <input id="title" type="text" name="title" placeholder="Project Name">
+      <button>Add Project</button>
+    </form>
+  </dialog>
   <footer>
     created by <a href="https://github.com/strallia/todo-list">strallia</a>
   </footer>

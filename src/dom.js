@@ -16,12 +16,10 @@ function displayProjectTabs() {
 
 function handleProjectTabClick(event) {
   const projectTitle = event.target.textContent;
-
   if (projectTitle === "All My Todo's") {
     displayTodoTabs();
     return;
   }
-
   const filteredTodoList = todoList.filter((item) => {
     return item.project === projectTitle;
   });
@@ -42,5 +40,14 @@ function displayTodoTabs(listArr = todoList) {
     todosDiv.appendChild(tab);
   };
 }
+
+
+// ADD BUTTONS
+const addProjectBtn = document.querySelector("button.add-project");
+addProjectBtn.onclick = () => {console.log('add project button clicked')};
+
+const addTodoBtn = document.querySelector("button.add-todo");
+addTodoBtn.onclick = () => {console.log('add todo button clicked')};
+
 
 export { displayProjectTabs, displayTodoTabs };
