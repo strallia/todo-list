@@ -22,3 +22,21 @@ div.content {
     border: 1px solid purple;
   }
 }
+
+
+/* PROJECTS */
+div.projects {
+  > .tab {
+    background-color: lightgoldenrodyellow;
+    border: 1px dashed orange;
+  }
+}
+
+
+/* TODO LIST */
+div.todos {
+  > .tab {
+    background-color: lightgoldenrodyellow;
+    border: 1px dashed orange;
+  }
+}

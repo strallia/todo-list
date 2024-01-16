@@ -39,9 +39,15 @@ const todoList = [
     'Add notes here',
     'high',
     'open'
-    )
+  ),
+  createTodo(
+    'Default Project',
+    'My Second Todo Item',
+    '1/30',
+    'Add notes here',
+    'medium',
+    'open'
+  ),
 ];
 
-export { createTodo };
-
-console.log(todoList);
+export { todoList };

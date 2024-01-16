@@ -30,7 +30,12 @@ function createProject(title, description) {
 const projectList = [
   createProject(
     "My Todo's", 
-    "Project containing all my todo's")
+    "Project containing all my todo's"
+  ),
+  createProject(
+    "Another Project", 
+    "Project containing todos for another project"
+  ),
 ];
 
 let currentProject = projectList[0];
