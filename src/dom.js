@@ -10,6 +10,7 @@ function displayProjectTabs() {
     const tab = document.createElement('div');
     tab.classList.add('tab');
     tab.setAttribute('data-index', projectList.indexOf(project));
+    tab.setAttribute('data-status', '');
     tab.textContent = project.title;
     tab.onclick = (event) => {handleProjectTabClick(event)};
     projectsDiv.appendChild(tab);
@@ -19,12 +20,23 @@ function displayProjectTabs() {
 function handleProjectTabClick(event) {
   const selectedProject = event.target;
 
+  // set bg color of selected tab
+  colorSelectedTab(selectedProject);
+
   // set current project
   const selectedProjectIndex = selectedProject.getAttribute('data-index');
   projectList[selectedProjectIndex].setAsCurrentProject();
 
   // re-display todo tabs
   displayTodoTabs();
+}
+
+function colorSelectedTab(selectedTab) {
+  const allProjectTabs = document.querySelectorAll('.projects > *');
+  for (const tab of allProjectTabs) {
+    tab.setAttribute('data-status', '');
+  }
+  selectedTab.setAttribute('data-status', 'open');
 }
 
 
@@ -116,4 +128,4 @@ resetTodoBtn.onclick = () => {
 };
 
 
-export { displayProjectTabs, displayTodoTabs };
+export { displayProjectTabs, displayTodoTabs, colorSelectedTab };

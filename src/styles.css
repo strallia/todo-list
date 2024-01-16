@@ -36,6 +36,10 @@ div.projects {
   > .tab {
     background-color: lightgoldenrodyellow;
     border: 1px dashed orange;
+
+    &[data-status="open"] {
+      background-color: orange;
+    }
   }
 }
 
