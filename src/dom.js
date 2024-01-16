@@ -16,6 +16,12 @@ function displayProjectTabs() {
 
 function handleProjectTabClick(event) {
   const projectTitle = event.target.textContent;
+
+  if (projectTitle === "All My Todo's") {
+    displayTodoTabs();
+    return;
+  }
+
   const filteredTodoList = todoList.filter((item) => {
     return item.project === projectTitle;
   });
