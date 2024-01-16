@@ -13,6 +13,16 @@ function findTodosForCurrentProject() {
   }
 }
 
+function removeTodoFromMasterList(event) {
+  const siblingTitleNode = event.target.previousSibling;
+  const todoTitle = siblingTitleNode.textContent;
+  const todoObj = todoList.find((todo) => {
+    return todo.title === todoTitle;
+  });
+  todoObj.removeFromList();
+}
+
 export { 
-  findTodosForCurrentProject 
+  findTodosForCurrentProject,
+  removeTodoFromMasterList 
 };

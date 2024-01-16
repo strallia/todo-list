@@ -1,6 +1,6 @@
 import { createProject, currentProject, projectList } from "./project";
 import { createTodo } from "./todo";
-import { findTodosForCurrentProject } from "./controller";
+import { findTodosForCurrentProject, removeTodoFromMasterList } from "./controller";
 
 
 // PROJECT LIST
@@ -47,15 +47,22 @@ function displayTodoTabs() {
   const todos = findTodosForCurrentProject();
   for (const todo of todos) {
     const tab = document.createElement('div');
+    const titlePara = document.createElement('p');
     const deleteBtn = document.createElement('button');
 
     tab.classList.add('tab');
     deleteBtn.classList.add('delete');
 
-    tab.textContent = todo.title;
+    titlePara.textContent = todo.title;
     deleteBtn.textContent = 'X';
 
-    tab.appendChild(deleteBtn)
+    deleteBtn.onclick = (event) => {
+      removeTodoFromMasterList(event);
+      displayTodoTabs();
+    };
+
+    tab.appendChild(titlePara);
+    tab.appendChild(deleteBtn);
     todosDiv.appendChild(tab);
   };
 }
