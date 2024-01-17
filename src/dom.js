@@ -1,5 +1,5 @@
 import { createProject, currentProject, projectList } from "./project";
-import { createTodo } from "./todo";
+import { createTodo, todoList } from "./todo";
 import { 
   findTodosForCurrentProject,
   findTodoInstance,
@@ -32,12 +32,19 @@ function displayProjectTabs() {
       displayTodoTabs();
     };
     deleteBtn.onclick = (event) => {
+      const removedProjectObj = findProjectInstance(event.target.parentNode);
+
+      // delete todos of that project
+      const removedTodos = todoList.filter((todo) => {
+        return todo.project === removedProjectObj.title;
+      });
+      removedTodos.forEach((todo) => {todo.removeFromList()});
+
       // remove project from master list
-      const projectObj = findProjectInstance(event.target.parentNode);
-      projectObj.removeFromList();
+      removedProjectObj.removeFromList();
       displayProjectTabs();
 
-      // set default project as current open project
+      // set default project as current project
       projectList[0].setAsCurrentProject();
       const defaultProjectTabNode = document.querySelector(
         `.projects > .tab[data-title="${projectList[0].title}"]`
