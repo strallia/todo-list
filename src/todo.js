@@ -38,7 +38,6 @@ const todoList = [
     '2024-01-31',
     'Notes show here',
     'high',
-    'open'
   ),
   createTodo(
     'Another Project',
@@ -46,7 +45,6 @@ const todoList = [
     '2024-01-16',
     'Some random note for this todo',
     'medium',
-    'open'
   ),
   createTodo(
     'Another Project',
@@ -54,7 +52,6 @@ const todoList = [
     '2024-02-22',
     'Things I gotta remember about this task',
     'medium',
-    'open'
   ),
 ];
 

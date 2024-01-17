@@ -13,15 +13,15 @@ function findTodosForCurrentProject() {
   }
 }
 
-function removeTodoFromMasterList(targetNode) {
-  const todoTitle = targetNode.getAttribute('data-title');
+function findTodoInstance(todoTabNode) {
+  const todoTitle = todoTabNode.getAttribute('data-title');
   const todoObj = todoList.find((todo) => {
     return todo.title === todoTitle;
   });
-  todoObj.removeFromList();
+  return todoObj;
 }
 
 export { 
   findTodosForCurrentProject,
-  removeTodoFromMasterList 
+  findTodoInstance,
 };

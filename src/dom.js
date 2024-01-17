@@ -1,6 +1,9 @@
 import { createProject, currentProject, projectList } from "./project";
 import { createTodo } from "./todo";
-import { findTodosForCurrentProject, removeTodoFromMasterList } from "./controller";
+import { 
+  findTodosForCurrentProject,
+  findTodoInstance,
+} from "./controller";
 
 
 // PROJECT LIST
@@ -59,8 +62,8 @@ function displayTodoTabs() {
     noteDiv.classList.add('note');
     priorityDiv.classList.add('priority');
 
+    tab.setAttribute('data-title', todo.title);
     checkbox.setAttribute('type', 'checkbox');
-    deleteBtn.setAttribute('data-title', todo.title);
 
     titlePara.textContent = todo.title;
     dueDateDiv.textContent = todo.dueDate;
@@ -68,8 +71,13 @@ function displayTodoTabs() {
     noteDiv.textContent = todo.note;
     priorityDiv.textContent = `priority: ${todo.priority}`;
 
+    checkbox.onclick = (event) => {
+      const todoObj = findTodoInstance(event.target.parentNode);
+      todoObj.toggleStatus();
+    };
     deleteBtn.onclick = (event) => {
-      removeTodoFromMasterList(event.target);
+      const todoObj = findTodoInstance(event.target.parentNode);
+      todoObj.removeFromList();
       displayTodoTabs();
     };
 
