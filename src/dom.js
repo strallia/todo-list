@@ -85,6 +85,7 @@ function displayTodoTabs() {
     const priorityDiv = document.createElement('div');
 
     tab.classList.add('tab');
+    titlePara.classList.add('title');
     deleteBtn.classList.add('delete');
     noteDiv.classList.add('note');
     priorityDiv.classList.add('priority');
@@ -103,6 +104,11 @@ function displayTodoTabs() {
       const todoObj = findTodoInstance(event.target.parentNode);
       todoObj.toggleStatus();
     };
+    editBtn.onclick = (event) => {
+      const todoNode = event.target.parentNode;
+      const todoObj = findTodoInstance(todoNode);
+      displayEditTodoView(todoObj, todoNode);
+    };
     deleteBtn.onclick = (event) => {
       const todoObj = findTodoInstance(event.target.parentNode);
       todoObj.removeFromList();
@@ -118,6 +124,19 @@ function displayTodoTabs() {
     tab.appendChild(priorityDiv);
     todosDiv.appendChild(tab);
   };
+}
+
+function displayEditTodoView(todoObj,todoNode) {
+  const titleContainer = todoNode.querySelector('.title');
+
+  titleContainer.textContent = '';
+
+  const titleInput = document.createElement('input');
+
+  titleInput.setAttribute('type', 'text');
+  titleInput.setAttribute('value', `${todoObj.title}`);
+
+  titleContainer.appendChild(titleInput);
 }
 
 
