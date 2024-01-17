@@ -50,13 +50,16 @@ function displayTodoTabs() {
     const titlePara = document.createElement('p');
     const dueDateDiv = document.createElement('div');
     const deleteBtn = document.createElement('button');
+    const noteDiv = document.createElement('div');
 
     tab.classList.add('tab');
     deleteBtn.classList.add('delete');
+    noteDiv.classList.add('note');
 
     titlePara.textContent = todo.title;
     dueDateDiv.textContent = todo.dueDate;
     deleteBtn.textContent = 'X';
+    noteDiv.textContent = todo.note;
 
     deleteBtn.onclick = (event) => {
       removeTodoFromMasterList(event);
@@ -66,6 +69,7 @@ function displayTodoTabs() {
     tab.appendChild(titlePara);
     tab.appendChild(dueDateDiv);
     tab.appendChild(deleteBtn);
+    tab.appendChild(noteDiv);
     todosDiv.appendChild(tab);
   };
 }

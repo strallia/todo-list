@@ -36,7 +36,7 @@ const todoList = [
     "All My Todo's",
     'Todo that belongs only in "All My Todos"',
     '2024-01-31',
-    'Add notes here',
+    'Notes show here',
     'high',
     'open'
   ),
@@ -44,7 +44,7 @@ const todoList = [
     'Another Project',
     'First Todo Item for "Another Project"',
     '2024-01-16',
-    'Add notes here',
+    'Some random note for this todo',
     'medium',
     'open'
   ),
@@ -52,7 +52,7 @@ const todoList = [
     'Another Project',
     'Second Todo Item for "Another Project"',
     '2024-02-22',
-    'Add notes here',
+    'Things I gotta remember about this task',
     'medium',
     'open'
   ),
