@@ -55,10 +55,12 @@ function displayTodoTabs() {
     const priorityDiv = document.createElement('div');
 
     tab.classList.add('tab');
-    checkbox.setAttribute('type', 'checkbox');
     deleteBtn.classList.add('delete');
     noteDiv.classList.add('note');
     priorityDiv.classList.add('priority');
+
+    checkbox.setAttribute('type', 'checkbox');
+    deleteBtn.setAttribute('data-title', todo.title);
 
     titlePara.textContent = todo.title;
     dueDateDiv.textContent = todo.dueDate;
@@ -67,7 +69,7 @@ function displayTodoTabs() {
     priorityDiv.textContent = `priority: ${todo.priority}`;
 
     deleteBtn.onclick = (event) => {
-      removeTodoFromMasterList(event);
+      removeTodoFromMasterList(event.target);
       displayTodoTabs();
     };
 

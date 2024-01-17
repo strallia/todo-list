@@ -13,9 +13,8 @@ function findTodosForCurrentProject() {
   }
 }
 
-function removeTodoFromMasterList(event) {
-  const titleNode = event.target.parentNode.firstChild;
-  const todoTitle = titleNode.textContent;
+function removeTodoFromMasterList(targetNode) {
+  const todoTitle = targetNode.getAttribute('data-title');
   const todoObj = todoList.find((todo) => {
     return todo.title === todoTitle;
   });
