@@ -32,9 +32,18 @@ function displayProjectTabs() {
       displayTodoTabs();
     };
     deleteBtn.onclick = (event) => {
+      // remove project from master list
       const projectObj = findProjectInstance(event.target.parentNode);
       projectObj.removeFromList();
       displayProjectTabs();
+
+      // set default project as current open project
+      projectList[0].setAsCurrentProject();
+      const defaultProjectTabNode = document.querySelector(
+        `.projects > .tab[data-title="${projectList[0].title}"]`
+      );
+      colorProjectTab(defaultProjectTabNode);
+      displayTodoTabs();
     };
 
     tab.appendChild(titlePara);
@@ -132,7 +141,9 @@ submitProjectBtn.onclick = (event) => {
 
   // re-display project tabs
   displayProjectTabs();
-  const newProjectTabNode = document.querySelector(`.projects > .tab[data-title="${title}"]`);
+  const newProjectTabNode = document.querySelector(
+    `.projects > .tab[data-title="${title}"]`
+  );
   colorProjectTab(newProjectTabNode);
 
   // display new project's empty todo list
