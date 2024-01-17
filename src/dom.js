@@ -4,6 +4,7 @@ import {
   findTodosForCurrentProject,
   findTodoInstance,
   findProjectInstance,
+  updateTodoData
 } from "./controller";
 
 
@@ -79,7 +80,7 @@ function displayTodoTabs() {
     const checkbox = document.createElement('input');
     const titlePara = document.createElement('p');
     const dueDateDiv = document.createElement('div');
-    const editBtn = document.createElement('button');
+    const modeBtn = document.createElement('button');
     const deleteBtn = document.createElement('button');
     const noteDiv = document.createElement('div');
     const priorityDiv = document.createElement('div');
@@ -87,6 +88,7 @@ function displayTodoTabs() {
     tab.classList.add('tab');
     titlePara.classList.add('title');
     dueDateDiv.classList.add('due-date');
+    modeBtn.classList.add('mode');
     deleteBtn.classList.add('delete');
     noteDiv.classList.add('note');
     priorityDiv.classList.add('priority');
@@ -96,7 +98,7 @@ function displayTodoTabs() {
 
     titlePara.textContent = todo.title;
     dueDateDiv.textContent = todo.dueDate;
-    editBtn .textContent = 'Edit';
+    modeBtn .textContent = 'Edit';
     deleteBtn.textContent = 'X';
     noteDiv.textContent = todo.note;
     priorityDiv.textContent = `priority: ${todo.priority}`;
@@ -105,7 +107,8 @@ function displayTodoTabs() {
       const todoObj = findTodoInstance(event.target.parentNode);
       todoObj.toggleStatus();
     };
-    editBtn.onclick = (event) => {
+    modeBtn.onclick = (event) => {
+      // show edit view on click
       const todoNode = event.target.parentNode;
       const todoObj = findTodoInstance(todoNode);
       displayEditTodoView(todoObj, todoNode);
@@ -119,7 +122,7 @@ function displayTodoTabs() {
     tab.appendChild(checkbox);
     tab.appendChild(titlePara);
     tab.appendChild(dueDateDiv);
-    tab.appendChild(editBtn);
+    tab.appendChild(modeBtn);
     tab.appendChild(deleteBtn);
     tab.appendChild(noteDiv);
     tab.appendChild(priorityDiv);
@@ -130,6 +133,7 @@ function displayTodoTabs() {
 function displayEditTodoView(todoObj,todoNode) {
   const titleContainer = todoNode.querySelector('.title');
   const dateContainer = todoNode.querySelector('.due-date');
+  const modeBtn = todoNode.querySelector('.mode');
   const noteContainer = todoNode.querySelector('.note');
   const priorityContainer = todoNode.querySelector('.priority');
 
@@ -168,11 +172,20 @@ function displayEditTodoView(todoObj,todoNode) {
   };
   selectOption.setAttribute('selected','');
 
+  modeBtn.textContent = 'Save';
   noteInput.textContent = todoObj.note;
   priorityLabel.textContent = 'Priority';
   priorityOptionLow.textContent = 'Low';
   priorityOptionMedium.textContent = 'Medium';
   priorityOptionHigh.textContent = 'High';
+
+  modeBtn.onclick = () => {
+    updateTodoData(
+      todoObj,
+      [titleInput, dateInput, noteInput, prioritySelect] 
+    );
+    displayTodoTabs();
+  };
 
   prioritySelect.appendChild(priorityOptionLow);
   prioritySelect.appendChild(priorityOptionMedium);

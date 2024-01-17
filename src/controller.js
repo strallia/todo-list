@@ -25,12 +25,24 @@ function findProjectInstance(projectTabNode) {
   const projectTitle = projectTabNode.getAttribute('data-title');
   const projectObj = projectList.find((project) => {
       return project.title === projectTitle;
-    });
+  });
   return projectObj;
+}
+
+function updateTodoData(todoObj, inputArr) {
+  const valuesArr = inputArr.map((input) => {
+    return input.value;
+  });
+  const [title, dueDate, note, priority] = valuesArr;
+  todoObj.title = title;
+  todoObj.dueDate = dueDate;
+  todoObj.note = note;
+  todoObj.priority = priority;
 }
 
 export { 
   findTodosForCurrentProject,
   findTodoInstance,
-  findProjectInstance
+  findProjectInstance,
+  updateTodoData
 };
