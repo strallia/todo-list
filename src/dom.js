@@ -3,6 +3,7 @@ import { createTodo } from "./todo";
 import { 
   findTodosForCurrentProject,
   findTodoInstance,
+  findProjectInstance,
 } from "./controller";
 
 
@@ -13,32 +14,42 @@ function displayProjectTabs() {
   projectsDiv.textContent = '';
   for (const project of projectList) {
     const tab = document.createElement('div');
+    const titlePara = document.createElement('p');
+    const deleteBtn = document.createElement('button');
+
     tab.classList.add('tab');
+
+    tab.setAttribute('data-title', project.title);
     tab.setAttribute('data-index', projectList.indexOf(project));
     tab.setAttribute('data-status', '');
-    tab.textContent = project.title;
-    tab.onclick = (event) => {
-      renderOpenProject(event.target)
+
+    titlePara.textContent = project.title;
+    deleteBtn.textContent = 'X';
+
+    titlePara.onclick = (event) => {
+      const projectObj = findProjectInstance(event.target.parentNode);
+      projectObj.setAsCurrentProject();
+      colorProjectTab(event.target.parentNode);
+      displayTodoTabs();
     };
+    deleteBtn.onclick = (event) => {
+      const projectObj = findProjectInstance(event.target.parentNode);
+      projectObj.removeFromList();
+      displayProjectTabs();
+    };
+
+    tab.appendChild(titlePara);
+    tab.appendChild(deleteBtn);
     projectsDiv.appendChild(tab);
   };
 }
 
-function colorProjectTab(projectNode) {
+function colorProjectTab(projectTabNode) {
   const allProjectTabs = document.querySelectorAll('.projects > *');
   for (const tab of allProjectTabs) {
     tab.setAttribute('data-status', '');
   }
-  projectNode.setAttribute('data-status', 'open');
-}
-
-function renderOpenProject(projectNode) {
-  // set current project
-  const selectedProjectIndex = projectNode.getAttribute('data-index');
-  projectList[selectedProjectIndex].setAsCurrentProject();
-  
-  colorProjectTab(projectNode);
-  displayTodoTabs();
+  projectTabNode.setAttribute('data-status', 'open');
 }
 
 

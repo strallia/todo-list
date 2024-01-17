@@ -1,4 +1,4 @@
-import { currentProject } from "./project";
+import { currentProject, projectList } from "./project";
 import { todoList } from "./todo";
 
 function findTodosForCurrentProject() {
@@ -21,7 +21,16 @@ function findTodoInstance(todoTabNode) {
   return todoObj;
 }
 
+function findProjectInstance(projectTabNode) {
+  const projectTitle = projectTabNode.getAttribute('data-title');
+  const projectObj = projectList.find((project) => {
+      return project.title === projectTitle;
+    });
+  return projectObj;
+}
+
 export { 
   findTodosForCurrentProject,
   findTodoInstance,
+  findProjectInstance
 };
