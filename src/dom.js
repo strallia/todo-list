@@ -20,7 +20,6 @@ function displayProjectTabs() {
     tab.classList.add('tab');
 
     tab.setAttribute('data-title', project.title);
-    tab.setAttribute('data-index', projectList.indexOf(project));
     tab.setAttribute('data-status', '');
 
     titlePara.textContent = project.title;
@@ -128,14 +127,17 @@ submitProjectBtn.onclick = (event) => {
   const newProject = createProject(title, description);
   newProject.addToList();
 
+  // set new project instance as current project
+  newProject.setAsCurrentProject();
+
   // re-display project tabs
   displayProjectTabs();
+  const newProjectTabNode = document.querySelector(`.projects > .tab[data-title="${title}"]`);
+  colorProjectTab(newProjectTabNode);
 
-  // set visuals for opening newly added project
-  const indexOfNewProject = projectList.length - 1;
-  const nodeOfNewProject = document.querySelector(`[data-index="${indexOfNewProject}"]`);
-  renderOpenProject(nodeOfNewProject);
-
+  // display new project's empty todo list
+  displayTodoTabs();
+  
   projectForm.reset();
   projectDialog.close(); 
 }
