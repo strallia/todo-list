@@ -54,7 +54,7 @@ function displayProjectTabs() {
     };
 
     tab.appendChild(titlePara);
-    tab.appendChild(deleteBtn);
+    if (project !== projectList[0]) tab.appendChild(deleteBtn);
     projectsDiv.appendChild(tab);
   };
 }
