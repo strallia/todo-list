@@ -48,12 +48,14 @@ function displayTodoTabs() {
   for (const todo of todos) {
     const tab = document.createElement('div');
     const titlePara = document.createElement('p');
+    const dueDateDiv = document.createElement('div');
     const deleteBtn = document.createElement('button');
 
     tab.classList.add('tab');
     deleteBtn.classList.add('delete');
 
     titlePara.textContent = todo.title;
+    dueDateDiv.textContent = todo.dueDate;
     deleteBtn.textContent = 'X';
 
     deleteBtn.onclick = (event) => {
@@ -62,6 +64,7 @@ function displayTodoTabs() {
     };
 
     tab.appendChild(titlePara);
+    tab.appendChild(dueDateDiv);
     tab.appendChild(deleteBtn);
     todosDiv.appendChild(tab);
   };

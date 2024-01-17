@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* outline: 1px solid red; */
+  outline: 1px solid red;
 }
 
 body {
@@ -50,7 +50,9 @@ div.todos {
     background-color: lightgoldenrodyellow;
     border: 1px dashed orange;
     display: flex;
-    justify-content: space-between;
+    > p {
+      margin-right: auto;
+    }
   }
 }
 

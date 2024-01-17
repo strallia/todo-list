@@ -14,8 +14,8 @@ function findTodosForCurrentProject() {
 }
 
 function removeTodoFromMasterList(event) {
-  const siblingTitleNode = event.target.previousSibling;
-  const todoTitle = siblingTitleNode.textContent;
+  const titleNode = event.target.parentNode.firstChild;
+  const todoTitle = titleNode.textContent;
   const todoObj = todoList.find((todo) => {
     return todo.title === todoTitle;
   });

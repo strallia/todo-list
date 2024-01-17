@@ -35,7 +35,7 @@ const todoList = [
   createTodo(
     "All My Todo's",
     'Todo that belongs only in "All My Todos"',
-    '1/27',
+    '2024-01-31',
     'Add notes here',
     'high',
     'open'
@@ -43,7 +43,7 @@ const todoList = [
   createTodo(
     'Another Project',
     'First Todo Item for "Another Project"',
-    '1/30',
+    '2024-01-16',
     'Add notes here',
     'medium',
     'open'
@@ -51,7 +51,7 @@ const todoList = [
   createTodo(
     'Another Project',
     'Second Todo Item for "Another Project"',
-    '1/30',
+    '2024-02-22',
     'Add notes here',
     'medium',
     'open'
