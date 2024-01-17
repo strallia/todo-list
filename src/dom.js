@@ -47,6 +47,7 @@ function displayTodoTabs() {
   const todos = findTodosForCurrentProject();
   for (const todo of todos) {
     const tab = document.createElement('div');
+    const checkbox = document.createElement('input');
     const titlePara = document.createElement('p');
     const dueDateDiv = document.createElement('div');
     const deleteBtn = document.createElement('button');
@@ -54,6 +55,7 @@ function displayTodoTabs() {
     const priorityDiv = document.createElement('div');
 
     tab.classList.add('tab');
+    checkbox.setAttribute('type', 'checkbox');
     deleteBtn.classList.add('delete');
     noteDiv.classList.add('note');
     priorityDiv.classList.add('priority');
@@ -69,6 +71,7 @@ function displayTodoTabs() {
       displayTodoTabs();
     };
 
+    tab.appendChild(checkbox);
     tab.appendChild(titlePara);
     tab.appendChild(dueDateDiv);
     tab.appendChild(deleteBtn);

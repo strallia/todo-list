@@ -51,16 +51,19 @@ div.todos {
     border: 1px dashed orange;
     padding: 5px;
     display: grid;
-    grid-template-columns: 1fr auto auto;
+    grid-template-columns: auto 1fr auto auto;
     gap: 5px;
 
-    > p {
+    p {
       margin-right: auto;
     }
     .note {
      background-color: whitesmoke;
-     grid-column: 1/4;
+     grid-column: 2/5;
      border: 1px solid grey;
+    }
+    .priority {
+      grid-column: 2/5;
     }
   }
 }
