@@ -54,8 +54,9 @@ div.todos {
     border: 1px dashed orange;
     padding: 5px;
     display: grid;
-    grid-template-columns: auto 1fr auto auto;
+    grid-template-columns: auto 1fr auto auto auto;
     gap: 5px;
+    align-items: center;
 
     p {
       margin-right: auto;
@@ -67,6 +68,9 @@ div.todos {
     }
     .priority {
       grid-column: 2/5;
+    }
+    button {
+      height: min-content;
     }
   }
 }

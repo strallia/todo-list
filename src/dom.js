@@ -79,6 +79,7 @@ function displayTodoTabs() {
     const checkbox = document.createElement('input');
     const titlePara = document.createElement('p');
     const dueDateDiv = document.createElement('div');
+    const editBtn = document.createElement('button');
     const deleteBtn = document.createElement('button');
     const noteDiv = document.createElement('div');
     const priorityDiv = document.createElement('div');
@@ -93,6 +94,7 @@ function displayTodoTabs() {
 
     titlePara.textContent = todo.title;
     dueDateDiv.textContent = todo.dueDate;
+    editBtn .textContent = 'Edit';
     deleteBtn.textContent = 'X';
     noteDiv.textContent = todo.note;
     priorityDiv.textContent = `priority: ${todo.priority}`;
@@ -110,6 +112,7 @@ function displayTodoTabs() {
     tab.appendChild(checkbox);
     tab.appendChild(titlePara);
     tab.appendChild(dueDateDiv);
+    tab.appendChild(editBtn);
     tab.appendChild(deleteBtn);
     tab.appendChild(noteDiv);
     tab.appendChild(priorityDiv);
