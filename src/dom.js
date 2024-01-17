@@ -86,6 +86,7 @@ function displayTodoTabs() {
 
     tab.classList.add('tab');
     titlePara.classList.add('title');
+    dueDateDiv.classList.add('due-date');
     deleteBtn.classList.add('delete');
     noteDiv.classList.add('note');
     priorityDiv.classList.add('priority');
@@ -128,15 +129,60 @@ function displayTodoTabs() {
 
 function displayEditTodoView(todoObj,todoNode) {
   const titleContainer = todoNode.querySelector('.title');
+  const dateContainer = todoNode.querySelector('.due-date');
+  const noteContainer = todoNode.querySelector('.note');
+  const priorityContainer = todoNode.querySelector('.priority');
 
   titleContainer.textContent = '';
+  dateContainer.textContent = '';
+  noteContainer.textContent = '';
+  priorityContainer.textContent = '';
 
   const titleInput = document.createElement('input');
+  const dateInput = document.createElement('input');
+  const noteInput = document.createElement('textarea');
+  const priorityLabel = document.createElement('label');
+  const prioritySelect = document.createElement('select');
+  const priorityOptionLow = document.createElement('option');
+  const priorityOptionMedium = document.createElement('option');
+  const priorityOptionHigh = document.createElement('option');
 
   titleInput.setAttribute('type', 'text');
   titleInput.setAttribute('value', `${todoObj.title}`);
+  dateInput.setAttribute('type', 'date');
+  dateInput.setAttribute('value', `${todoObj.dueDate}`);
+  priorityLabel.setAttribute('for', 'priority');
+  prioritySelect.setAttribute('id', 'priority');
+  priorityOptionLow.setAttribute('value', 'low');
+  priorityOptionMedium.setAttribute('value', 'medium');
+  priorityOptionHigh.setAttribute('value', 'high');
+
+  const currentPriority = todoObj.priority;
+  let selectOption;
+  if (currentPriority === 'low') {
+    selectOption = priorityOptionLow;
+  } else if (currentPriority === 'medium') {
+    selectOption = priorityOptionMedium;
+  } else {
+    selectOption = priorityOptionHigh;
+  };
+  selectOption.setAttribute('selected','');
+
+  noteInput.textContent = todoObj.note;
+  priorityLabel.textContent = 'Priority';
+  priorityOptionLow.textContent = 'Low';
+  priorityOptionMedium.textContent = 'Medium';
+  priorityOptionHigh.textContent = 'High';
+
+  prioritySelect.appendChild(priorityOptionLow);
+  prioritySelect.appendChild(priorityOptionMedium);
+  prioritySelect.appendChild(priorityOptionHigh);
 
   titleContainer.appendChild(titleInput);
+  dateContainer.appendChild(dateInput);
+  noteContainer.appendChild(noteInput);
+  priorityContainer.appendChild(priorityLabel);
+  priorityContainer.appendChild(prioritySelect);
 }
 
 
