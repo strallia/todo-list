@@ -49,14 +49,16 @@ div.todos {
   > .tab {
     background-color: lightgoldenrodyellow;
     border: 1px dashed orange;
+    padding: 5px;
     display: grid;
     grid-template-columns: 1fr auto auto;
+    gap: 5px;
+
     > p {
       margin-right: auto;
     }
     .note {
      background-color: whitesmoke;
-     margin: 5px;
      grid-column: 1/4;
      border: 1px solid grey;
     }
