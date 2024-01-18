@@ -131,30 +131,24 @@ function displayTodoTabs() {
 }
 
 function displayEditTodoView(todoObj,todoNode) {
-  const titleContainer = todoNode.querySelector('.title');
-  const dateContainer = todoNode.querySelector('.due-date');
-  const modeBtn = todoNode.querySelector('.mode');
-  const noteContainer = todoNode.querySelector('.note');
-  const priorityContainer = todoNode.querySelector('.priority');
+  todoNode.textContent = '';
 
-  titleContainer.textContent = '';
-  dateContainer.textContent = '';
-  noteContainer.textContent = '';
-  priorityContainer.textContent = '';
-
+  const form = document.createElement('form');
   const titleInput = document.createElement('input');
   const dateInput = document.createElement('input');
+  const saveBtn = document.createElement('button');
   const noteInput = document.createElement('textarea');
   const priorityLabel = document.createElement('label');
   const prioritySelect = document.createElement('select');
   const priorityOptionLow = document.createElement('option');
   const priorityOptionMedium = document.createElement('option');
   const priorityOptionHigh = document.createElement('option');
-
+  
   titleInput.setAttribute('type', 'text');
   titleInput.setAttribute('value', `${todoObj.title}`);
   dateInput.setAttribute('type', 'date');
   dateInput.setAttribute('value', `${todoObj.dueDate}`);
+  saveBtn.setAttribute('type', 'submit');
   priorityLabel.setAttribute('for', 'priority');
   prioritySelect.setAttribute('id', 'priority');
   priorityOptionLow.setAttribute('value', 'low');
@@ -172,14 +166,15 @@ function displayEditTodoView(todoObj,todoNode) {
   };
   selectOption.setAttribute('selected','');
 
-  modeBtn.textContent = 'Save';
+  saveBtn.textContent = 'Save';
   noteInput.textContent = todoObj.note;
   priorityLabel.textContent = 'Priority';
   priorityOptionLow.textContent = 'Low';
   priorityOptionMedium.textContent = 'Medium';
   priorityOptionHigh.textContent = 'High';
 
-  modeBtn.onclick = () => {
+  saveBtn.onclick = (event) => {
+    event.preventDefault();
     updateTodoData(
       todoObj,
       [titleInput, dateInput, noteInput, prioritySelect] 
@@ -191,11 +186,14 @@ function displayEditTodoView(todoObj,todoNode) {
   prioritySelect.appendChild(priorityOptionMedium);
   prioritySelect.appendChild(priorityOptionHigh);
 
-  titleContainer.appendChild(titleInput);
-  dateContainer.appendChild(dateInput);
-  noteContainer.appendChild(noteInput);
-  priorityContainer.appendChild(priorityLabel);
-  priorityContainer.appendChild(prioritySelect);
+  form.appendChild(titleInput);
+  form.appendChild(dateInput);
+  form.appendChild(saveBtn);
+  form.appendChild(noteInput);
+  form.appendChild(priorityLabel);
+  form.appendChild(prioritySelect);
+
+  todoNode.appendChild(form);
 }
 
 
