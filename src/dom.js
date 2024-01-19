@@ -82,16 +82,18 @@ function displayTodoTabs() {
     const dueDateDiv = document.createElement('div');
     const editBtn = document.createElement('button');
     const deleteBtn = document.createElement('button');
-    const noteDiv = document.createElement('div');
-    const priorityDiv = document.createElement('div');
+    const expandBtn = document.createElement('button');
+    const collapseBtn = document.createElement('button');
 
     tab.classList.add('tab');
     titlePara.classList.add('title');
     dueDateDiv.classList.add('due-date');
     editBtn.classList.add('mode');
     deleteBtn.classList.add('delete');
-    noteDiv.classList.add('note');
-    priorityDiv.classList.add('priority');
+    expandBtn.classList.add('expand');
+    collapseBtn.classList.add('collapse');
+
+    collapseBtn.style.display = 'none';
 
     tab.setAttribute('data-title', todo.title);
     checkbox.setAttribute('type', 'checkbox');
@@ -100,8 +102,8 @@ function displayTodoTabs() {
     dueDateDiv.textContent = todo.dueDate;
     editBtn .textContent = 'Edit';
     deleteBtn.textContent = 'X';
-    noteDiv.textContent = todo.note;
-    priorityDiv.textContent = `priority: ${todo.priority}`;
+    expandBtn.textContent = '▼';
+    collapseBtn.textContent = '▲';
 
     checkbox.onclick = (event) => {
       const todoObj = findTodoInstance(event.target.parentNode);
@@ -117,14 +119,20 @@ function displayTodoTabs() {
       todoObj.removeFromList();
       displayTodoTabs();
     };
+    expandBtn.onclick = () => {
+      expandTodo(todo);
+    };
+    collapseBtn.onclick = () => {
+      collapseTodo(todo);
+    };
 
     tab.appendChild(checkbox);
     tab.appendChild(titlePara);
     tab.appendChild(dueDateDiv);
     tab.appendChild(editBtn);
     tab.appendChild(deleteBtn);
-    tab.appendChild(noteDiv);
-    tab.appendChild(priorityDiv);
+    tab.appendChild(expandBtn);
+    tab.appendChild(collapseBtn);
     todosDiv.appendChild(tab);
   };
 }
@@ -212,6 +220,41 @@ function openTodoEditModal(todoObj) {
   dialog.appendChild(form);
 
   body.appendChild(dialog);
+}
+
+function expandTodo(todoObj) {
+  const todoNode = document.querySelector(`.todos > .tab[data-title='${todoObj.title}']`);
+  const expandBtn = todoNode.querySelector('.expand');
+  const collapseBtn = todoNode.querySelector('.collapse');
+
+  const noteDiv = document.createElement('div');
+  const priorityDiv = document.createElement('div');
+
+  noteDiv.classList.add('note');
+  priorityDiv.classList.add('priority');
+
+  expandBtn.style.display = 'none';
+  collapseBtn.style.display = '';
+
+  noteDiv.textContent = todoObj.note;
+  priorityDiv.textContent = `priority: ${todoObj.priority}`;
+
+  todoNode.appendChild(noteDiv);
+  todoNode.appendChild(priorityDiv);
+}
+
+function collapseTodo(todoObj) {
+  const todoNode = document.querySelector(`.todos > .tab[data-title='${todoObj.title}']`);
+  const note = todoNode.querySelector('.note');
+  const priority = todoNode.querySelector('.priority');
+  const expandBtn = todoNode.querySelector('.expand');
+  const collapseBtn = todoNode.querySelector('.collapse');
+
+  expandBtn.style.display = 'none';
+  collapseBtn.style.display = '';
+
+  note.classList.add('hidden');
+  priority.classList.add('hidden');
 }
 
 

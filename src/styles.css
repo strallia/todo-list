@@ -54,29 +54,37 @@ div.todos {
     border: 1px dashed orange;
     padding: 5px;
     display: grid;
-    grid-template-columns: auto 1fr auto auto auto;
+    grid-template-columns: auto 1fr auto auto auto auto;
     gap: 5px;
     align-items: center;
 
     p {
         margin-right: auto;
       }
-      .note {
-      background-color: whitesmoke;
-      grid-column: 2/5;
-      border: 1px solid grey;
-      }
-      .priority {
-        grid-column: 2/5;
-      }
-      button {
-        height: min-content;
-      }
+    .note {
+    background-color: whitesmoke;
+    grid-column: 2/6;
+    border: 1px solid grey;
+    }
+    .priority {
+      grid-column: 2/6;
+    }
+    button {
+      height: min-content;
+    }
+    .hidden {
+      display: none;
+    }
+  }
+  button.collapse {
+  }
+  button.expand {
   }
 }
 dialog.edit-todo {
   
 }
+
 
 
 /* FORMS */
