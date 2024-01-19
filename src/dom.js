@@ -94,7 +94,6 @@ function displayTodoTabs() {
     priorityDiv.classList.add('priority');
 
     tab.setAttribute('data-title', todo.title);
-    tab.setAttribute('data-mode', 'view');
     checkbox.setAttribute('type', 'checkbox');
 
     titlePara.textContent = todo.title;
@@ -111,7 +110,7 @@ function displayTodoTabs() {
     editBtn.onclick = (event) => {
       const todoNode = event.target.parentNode;
       const todoObj = findTodoInstance(todoNode);
-      displayEditTodoView(todoObj, todoNode);
+      openTodoEditModal(todoObj, todoNode);
     };
     deleteBtn.onclick = (event) => {
       const todoObj = findTodoInstance(event.target.parentNode);
@@ -130,13 +129,15 @@ function displayTodoTabs() {
   };
 }
 
-function displayEditTodoView(todoObj,todoNode) {
-  todoNode.textContent = '';
+function openTodoEditModal(todoObj,todoNode) {
+  const body = document.querySelector('body');
 
+  const dialog = document.createElement('dialog');
   const form = document.createElement('form');
   const titleInput = document.createElement('input');
   const dateInput = document.createElement('input');
   const saveBtn = document.createElement('button');
+  const cancelBtn = document.createElement('button');
   const noteInput = document.createElement('textarea');
   const priorityContainer = document.createElement('div');
   const priorityLabel = document.createElement('label');
@@ -145,10 +146,11 @@ function displayEditTodoView(todoObj,todoNode) {
   const priorityOptionMedium = document.createElement('option');
   const priorityOptionHigh = document.createElement('option');
 
+  dialog.classList.add('edit-todo');
   noteInput.classList.add('note');
   priorityContainer.classList.add('priority');
   
-  todoNode.setAttribute('data-mode', 'edit');
+  dialog.setAttribute('open', '');
   titleInput.setAttribute('type', 'text');
   titleInput.setAttribute('value', `${todoObj.title}`);
   dateInput.setAttribute('type', 'date');
@@ -159,6 +161,7 @@ function displayEditTodoView(todoObj,todoNode) {
   priorityOptionLow.setAttribute('value', 'low');
   priorityOptionMedium.setAttribute('value', 'medium');
   priorityOptionHigh.setAttribute('value', 'high');
+  cancelBtn.setAttribute('type', 'reset');
 
   const currentPriority = todoObj.priority;
   let selectOption;
@@ -177,6 +180,7 @@ function displayEditTodoView(todoObj,todoNode) {
   priorityOptionLow.textContent = 'Low';
   priorityOptionMedium.textContent = 'Medium';
   priorityOptionHigh.textContent = 'High';
+  cancelBtn.textContent = 'Cancel';
 
   saveBtn.onclick = (event) => {
     event.preventDefault();
@@ -185,7 +189,11 @@ function displayEditTodoView(todoObj,todoNode) {
       [titleInput, dateInput, noteInput, prioritySelect] 
     );
     displayTodoTabs();
+    dialog.close();
   };
+  cancelBtn.onclick = () => {
+    dialog.close();
+  }
 
   prioritySelect.appendChild(priorityOptionLow);
   prioritySelect.appendChild(priorityOptionMedium);
@@ -196,11 +204,14 @@ function displayEditTodoView(todoObj,todoNode) {
 
   form.appendChild(titleInput);
   form.appendChild(dateInput);
-  form.appendChild(saveBtn);
   form.appendChild(noteInput);
   form.appendChild(priorityContainer);
+  form.appendChild(saveBtn);
+  form.appendChild(cancelBtn);
 
-  todoNode.appendChild(form);
+  dialog.appendChild(form);
+
+  body.appendChild(dialog);
 }
 
 

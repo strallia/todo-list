@@ -49,41 +49,33 @@ div.projects {
 
 /* TODO LIST */
 div.todos {
-  .tab[data-mode="view"],
-  .tab[data-mode="edit"] form {
+  .tab {
     background-color: lightgoldenrodyellow;
     border: 1px dashed orange;
     padding: 5px;
     display: grid;
+    grid-template-columns: auto 1fr auto auto auto;
     gap: 5px;
     align-items: center;
-  }
 
-  .tab[data-mode="view"] {
-    grid-template-columns: auto 1fr auto auto auto;
     p {
-      margin-right: auto;
-    }
-    .note {
-     background-color: whitesmoke;
-     grid-column: 2/5;
-     border: 1px solid grey;
-    }
-    .priority {
+        margin-right: auto;
+      }
+      .note {
+      background-color: whitesmoke;
       grid-column: 2/5;
-    }
-    button {
-      height: min-content;
-    }
+      border: 1px solid grey;
+      }
+      .priority {
+        grid-column: 2/5;
+      }
+      button {
+        height: min-content;
+      }
   }
-
-  .tab[data-mode="edit"] form {
-    grid-template-columns: 1fr auto auto;
-    .note,
-    .priority {
-      grid-column: 1/4;
-    }
-  }
+}
+dialog.edit-todo {
+  
 }
 
 
