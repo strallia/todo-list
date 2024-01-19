@@ -94,6 +94,7 @@ function displayTodoTabs() {
     priorityDiv.classList.add('priority');
 
     tab.setAttribute('data-title', todo.title);
+    tab.setAttribute('data-mode', 'view');
     checkbox.setAttribute('type', 'checkbox');
 
     titlePara.textContent = todo.title;
@@ -138,12 +139,17 @@ function displayEditTodoView(todoObj,todoNode) {
   const dateInput = document.createElement('input');
   const saveBtn = document.createElement('button');
   const noteInput = document.createElement('textarea');
+  const priorityContainer = document.createElement('div');
   const priorityLabel = document.createElement('label');
   const prioritySelect = document.createElement('select');
   const priorityOptionLow = document.createElement('option');
   const priorityOptionMedium = document.createElement('option');
   const priorityOptionHigh = document.createElement('option');
+
+  noteInput.classList.add('note');
+  priorityContainer.classList.add('priority');
   
+  todoNode.setAttribute('data-mode', 'edit');
   titleInput.setAttribute('type', 'text');
   titleInput.setAttribute('value', `${todoObj.title}`);
   dateInput.setAttribute('type', 'date');
@@ -186,12 +192,14 @@ function displayEditTodoView(todoObj,todoNode) {
   prioritySelect.appendChild(priorityOptionMedium);
   prioritySelect.appendChild(priorityOptionHigh);
 
+  priorityContainer.appendChild(priorityLabel);
+  priorityContainer.appendChild(prioritySelect);
+
   form.appendChild(titleInput);
   form.appendChild(dateInput);
   form.appendChild(saveBtn);
   form.appendChild(noteInput);
-  form.appendChild(priorityLabel);
-  form.appendChild(prioritySelect);
+  form.appendChild(priorityContainer);
 
   todoNode.appendChild(form);
 }
