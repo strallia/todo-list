@@ -80,7 +80,7 @@ function displayTodoTabs() {
     const checkbox = document.createElement('input');
     const titlePara = document.createElement('p');
     const dueDateDiv = document.createElement('div');
-    const modeBtn = document.createElement('button');
+    const editBtn = document.createElement('button');
     const deleteBtn = document.createElement('button');
     const noteDiv = document.createElement('div');
     const priorityDiv = document.createElement('div');
@@ -88,7 +88,7 @@ function displayTodoTabs() {
     tab.classList.add('tab');
     titlePara.classList.add('title');
     dueDateDiv.classList.add('due-date');
-    modeBtn.classList.add('mode');
+    editBtn.classList.add('mode');
     deleteBtn.classList.add('delete');
     noteDiv.classList.add('note');
     priorityDiv.classList.add('priority');
@@ -99,7 +99,7 @@ function displayTodoTabs() {
 
     titlePara.textContent = todo.title;
     dueDateDiv.textContent = todo.dueDate;
-    modeBtn .textContent = 'Edit';
+    editBtn .textContent = 'Edit';
     deleteBtn.textContent = 'X';
     noteDiv.textContent = todo.note;
     priorityDiv.textContent = `priority: ${todo.priority}`;
@@ -108,8 +108,7 @@ function displayTodoTabs() {
       const todoObj = findTodoInstance(event.target.parentNode);
       todoObj.toggleStatus();
     };
-    modeBtn.onclick = (event) => {
-      // show edit view on click
+    editBtn.onclick = (event) => {
       const todoNode = event.target.parentNode;
       const todoObj = findTodoInstance(todoNode);
       displayEditTodoView(todoObj, todoNode);
@@ -123,7 +122,7 @@ function displayTodoTabs() {
     tab.appendChild(checkbox);
     tab.appendChild(titlePara);
     tab.appendChild(dueDateDiv);
-    tab.appendChild(modeBtn);
+    tab.appendChild(editBtn);
     tab.appendChild(deleteBtn);
     tab.appendChild(noteDiv);
     tab.appendChild(priorityDiv);
