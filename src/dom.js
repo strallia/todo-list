@@ -110,7 +110,7 @@ function displayTodoTabs() {
     editBtn.onclick = (event) => {
       const todoNode = event.target.parentNode;
       const todoObj = findTodoInstance(todoNode);
-      openTodoEditModal(todoObj, todoNode);
+      openTodoEditModal(todoObj);
     };
     deleteBtn.onclick = (event) => {
       const todoObj = findTodoInstance(event.target.parentNode);
@@ -129,7 +129,7 @@ function displayTodoTabs() {
   };
 }
 
-function openTodoEditModal(todoObj,todoNode) {
+function openTodoEditModal(todoObj) {
   const body = document.querySelector('body');
 
   const dialog = document.createElement('dialog');
