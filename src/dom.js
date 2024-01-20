@@ -246,9 +246,18 @@ function displayTodoDetails() {
     const dueDatePara = todoNode.querySelector('.due-date');
     const notePara = todoNode.querySelector('.note');
     const priorityPara = todoNode.querySelector('.priority');
+    
+    const formatDueDate = () => {
+      const date = (todoObj.dueDate).split('-');
+      let mm = date[1];
+      let dd = date[2];
+      if (mm.charAt(0) === '0') mm = mm.charAt(1);
+      if (dd.charAt(0) === '0') dd = dd.charAt(1);
+      return  mm + '/' + dd;
+    }
 
     titlePara.textContent = todoObj.title;
-    dueDatePara.textContent = todoObj.dueDate;
+    dueDatePara.textContent = formatDueDate();
     notePara.textContent = todoObj.note;
     priorityPara.textContent = 'Priority: ' + todoObj.priority;
   }
