@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --open",
-    "pages": "npx webpack && git subtree push --prefix dist origin gh-pages"
+    "pages": "git subtree push --prefix dist origin gh-pages"
   },
   "keywords": [],
   "author": "",
