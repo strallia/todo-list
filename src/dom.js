@@ -114,6 +114,7 @@ function openProjectEditModal(btnNode) {
   titleInput.setAttribute('value', projectObj.title);
   titleInput.setAttribute('id', 'title');
   titleInput.setAttribute('name', 'title');
+  titleInput.setAttribute('required', '');
   descriptionInput.setAttribute('id', 'note');
   descriptionInput.setAttribute('name', 'note');
   saveBtn.setAttribute('type', 'submit');
@@ -125,6 +126,8 @@ function openProjectEditModal(btnNode) {
 
   saveBtn.onclick = (event) => {
     event.preventDefault();
+    if (!form.checkValidity()) return form.reportValidity();
+
     // update the todos project name
     const newTitle = titleInput.value;
     updateTodosProjectValue(projectObj, newTitle);
@@ -301,6 +304,7 @@ function openTodoEditModal(btnNode) {
   titleInput.setAttribute('value', `${todoObj.title}`);
   titleInput.setAttribute('id', 'title');
   titleInput.setAttribute('name', 'title');
+  titleInput.setAttribute('required', '');
   dateInput.setAttribute('type', 'date');
   dateInput.setAttribute('value', `${todoObj.dueDate}`);
   dateInput.setAttribute('id', 'due-date');
@@ -337,6 +341,7 @@ function openTodoEditModal(btnNode) {
 
   saveBtn.onclick = (event) => {
     event.preventDefault();
+    if (!form.checkValidity()) return form.reportValidity();
     updateTodoData(
       todoObj,
       [titleInput, dateInput, noteInput, prioritySelect] 
@@ -421,7 +426,7 @@ function todaysDate() {
   const yyyy = today.getFullYear();
   let mm = (today.getMonth() + 1).toString();
   let dd = (today.getDate()).toString();
-  
+
   if (mm.length === 1) {mm = '0' + mm};
   if (dd.length === 1) {dd = '0' + dd};
   return yyyy + '-' + mm + '-' + dd;
