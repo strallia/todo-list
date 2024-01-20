@@ -4,16 +4,12 @@
 import { currentProject, projectList, createProject } from "./project";
 import { todoList, createTodo } from "./todo";
 
-function findTodosForCurrentProject() {
-  const projectTitle = currentProject.title;
-  if (projectTitle === "All My Todo's") {
-    return todoList;
-  } else {
-    const filteredTodoList = todoList.filter((item) => {
-      return item.project === projectTitle;
-    });
-    return filteredTodoList;
-  }
+function findTodosForSelectProject(projectObj) {
+  const projectTitle = projectObj.title;
+  const filteredTodoList = todoList.filter((item) => {
+    return item.project === projectTitle;
+  });
+  return filteredTodoList;
 }
 
 function returnTodoObj(node) {
@@ -50,6 +46,13 @@ function updateProjectData(projectObj, inputArr) {
   const [title, description] = valuesArr;
   projectObj.title = title;
   projectObj.description = description;
+}
+
+function updateTodosProjectValue(projectObj, newProjectValue) {
+ const todos = findTodosForSelectProject(projectObj);
+ for (const todo of todos) {
+   todo.project = newProjectValue;
+ }
 }
 
 function returnNodeListOfTodoTabs() {
@@ -96,11 +99,12 @@ function createNewTodo(project, title, dueDate, note, priority, status) {
 
 
 export { 
-  findTodosForCurrentProject,
+  findTodosForSelectProject,
   returnTodoObj,
   returnProjectObj,
   updateTodoData,
   updateProjectData,
+  updateTodosProjectValue,
   returnNodeListOfTodoTabs,
   toggleTodoStatus,
   removeTodoFromList,

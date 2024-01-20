@@ -4,10 +4,10 @@ import './styles.css';
 import { 
   colorProjectTab,
   displayProjectTabs, 
-  setWireframeForAllTodos,
+  displayTodoTabsOfCurrentProject,
 } from "./dom.js";
 
 // RENDER DEFAULT UI
-setWireframeForAllTodos();
+displayTodoTabsOfCurrentProject();
 displayProjectTabs();
 colorProjectTab(document.querySelector('.projects div:first-of-type'));

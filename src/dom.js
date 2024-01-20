@@ -1,7 +1,7 @@
 import { currentProject, projectList } from "./project";
 import { todoList } from "./todo";
 import { 
-  findTodosForCurrentProject,
+  findTodosForSelectProject,
   returnTodoObj,
   returnProjectObj,
   updateTodoData,
@@ -12,7 +12,8 @@ import {
   removeDataOfDeletedProject,
   createNewProject,
   createNewTodo,
-  updateProjectData
+  updateProjectData,
+  updateTodosProjectValue
 } from "./controller";
 
 
@@ -54,7 +55,7 @@ function displayProjectTabs() {
     titlePara.onclick = (event) => {
       setCurrentProject(event.target.parentNode);
       colorProjectTab(event.target.parentNode);
-      setWireframeForAllTodos();
+      displayTodoTabsOfCurrentProject();
     };
     editBtn.onclick = (event) => {
       openProjectEditModal(event.target);
@@ -68,7 +69,7 @@ function displayProjectTabs() {
         const defaultProjectNode = projectsDiv.firstChild;
         setCurrentProject(defaultProjectNode);
         colorProjectTab(defaultProjectNode);
-        setWireframeForAllTodos();
+        displayTodoTabsOfCurrentProject();
       } else {
         const currentProjectNode = projectsDiv.querySelector(
           `.tab[data-title="${currentProject.title}"]`
@@ -110,7 +111,7 @@ function openProjectEditModal(btnNode) {
   
   dialog.setAttribute('open', '');
   titleInput.setAttribute('type', 'text');
-  titleInput.setAttribute('value', `${projectObj.title}`);
+  titleInput.setAttribute('value', projectObj.title);
   titleInput.setAttribute('id', 'title');
   titleInput.setAttribute('name', 'title');
   descriptionInput.setAttribute('id', 'note');
@@ -124,11 +125,25 @@ function openProjectEditModal(btnNode) {
 
   saveBtn.onclick = (event) => {
     event.preventDefault();
+    // update the todos project name
+    const newTitle = titleInput.value;
+    updateTodosProjectValue(projectObj, newTitle);
+
+    // update project data in master list
     updateProjectData(
       projectObj,
       [titleInput, descriptionInput] 
     );
+
+    // open the edited project's tab
     displayProjectTabs();
+    const editedProjectNode = projectsDiv.querySelector(
+      `.tab[data-title="${projectObj.title}`
+    );
+    setCurrentProject(editedProjectNode);
+    colorProjectTab(editedProjectNode);
+    displayTodoTabsOfCurrentProject();
+
     dialog.close();
   };
   cancelBtn.onclick = () => {dialog.close()};
@@ -147,11 +162,11 @@ function openProjectEditModal(btnNode) {
 // TODO LIST
 const todosDiv = document.querySelector('.todos');
 
-function setWireframeForAllTodos() {
+function displayTodoTabsOfCurrentProject() {
   clearContent(todosDiv);
   const todos = currentProject === projectList[0] 
     ? todoList
-    : findTodosForCurrentProject();
+    : findTodosForSelectProject(currentProject);
   for (const todo of todos) {
     const tab = document.createElement('div');
     const headerDiv = document.createElement('div');
@@ -198,7 +213,7 @@ function setWireframeForAllTodos() {
     };
     deleteBtn.onclick = (event) => {
       removeTodoFromList(event.target);
-      setWireframeForAllTodos();
+      displayTodoTabsOfCurrentProject();
     };
     viewModeBtn.onclick = (event) => {
       rotateViewModeBtn(event.target);
@@ -332,7 +347,7 @@ function openTodoEditModal(btnNode) {
       todoObj,
       [titleInput, dateInput, noteInput, prioritySelect] 
     );
-    setWireframeForAllTodos();
+    displayTodoTabsOfCurrentProject();
     dialog.close();
   };
   cancelBtn.onclick = () => {
@@ -388,7 +403,7 @@ submitProjectBtn.onclick = (event) => {
   const newProjectNode = projectsDiv.lastChild;
   setCurrentProject(newProjectNode);
   colorProjectTab(newProjectNode);
-  setWireframeForAllTodos();
+  displayTodoTabsOfCurrentProject();
   
   projectForm.reset();
   projectDialog.close(); 
@@ -416,7 +431,7 @@ submitTodoBtn.onclick = (event) => {
   const note = todoNoteInput.value;
   const priority = todoPriorityInput.value;
   createNewTodo(project, title, dueDate, note, priority);
-  setWireframeForAllTodos();
+  displayTodoTabsOfCurrentProject();
   todoForm.reset();
   todoDialog.close();
 }
@@ -430,5 +445,5 @@ resetTodoBtn.onclick = () => {
 export { 
   displayProjectTabs, 
   colorProjectTab,
-  setWireframeForAllTodos
+  displayTodoTabsOfCurrentProject
 };
