@@ -33,6 +33,7 @@ function displayProjectTabs() {
 
     tab.setAttribute('data-title', project.title);
     tab.setAttribute('data-status', '');
+    deleteBtn.setAttribute('data-title', project.title);
 
     titlePara.textContent = project.title;
     deleteBtn.textContent = 'X';
@@ -40,15 +41,24 @@ function displayProjectTabs() {
     titlePara.onclick = (event) => {
       setCurrentProject(event.target.parentNode);
       colorProjectTab(event.target.parentNode);
-      setUpWireframeForAllTodos();
+      setWireframeForAllTodos();
     };
     deleteBtn.onclick = (event) => {
       removeDataOfDeletedProject(event.target.parentNode); 
       displayProjectTabs();
-      const defaultProjectNode = projectsDiv.firstChild;
-      setCurrentProject(defaultProjectNode);
-      colorProjectTab(defaultProjectNode);
-      setUpWireframeForAllTodos();
+
+      const deletedProjectTitle = event.target.getAttribute('data-title');
+      if (currentProject.title === deletedProjectTitle) {
+        const defaultProjectNode = projectsDiv.firstChild;
+        setCurrentProject(defaultProjectNode);
+        colorProjectTab(defaultProjectNode);
+        setWireframeForAllTodos();
+      } else {
+        const currentProjectNode = projectsDiv.querySelector(
+          `.tab[data-title="${currentProject.title}"]`
+        );
+        colorProjectTab(currentProjectNode);
+      }
     };
 
     tab.appendChild(titlePara);
@@ -69,7 +79,7 @@ function colorProjectTab(projectTabNode) {
 // TODO LIST
 const todosDiv = document.querySelector('.todos');
 
-function setUpWireframeForAllTodos() {
+function setWireframeForAllTodos() {
   clearContent(todosDiv);
   const todos = currentProject === projectList[0] 
     ? todoList
@@ -120,7 +130,7 @@ function setUpWireframeForAllTodos() {
     };
     deleteBtn.onclick = (event) => {
       removeTodoFromList(event.target);
-      setUpWireframeForAllTodos();
+      setWireframeForAllTodos();
     };
     viewModeBtn.onclick = (event) => {
       rotateViewModeBtn(event.target);
@@ -254,7 +264,7 @@ function openTodoEditModal(btnNode) {
       todoObj,
       [titleInput, dateInput, noteInput, prioritySelect] 
     );
-    setUpWireframeForAllTodos();
+    setWireframeForAllTodos();
     dialog.close();
   };
   cancelBtn.onclick = () => {
@@ -310,7 +320,7 @@ submitProjectBtn.onclick = (event) => {
   const newProjectNode = projectsDiv.lastChild;
   setCurrentProject(newProjectNode);
   colorProjectTab(newProjectNode);
-  setUpWireframeForAllTodos();
+  setWireframeForAllTodos();
   
   projectForm.reset();
   projectDialog.close(); 
@@ -338,7 +348,7 @@ submitTodoBtn.onclick = (event) => {
   const note = todoNoteInput.value;
   const priority = todoPriorityInput.value;
   createNewTodo(project, title, dueDate, note, priority);
-  setUpWireframeForAllTodos();
+  setWireframeForAllTodos();
   todoForm.reset();
   todoDialog.close();
 }
@@ -352,5 +362,5 @@ resetTodoBtn.onclick = () => {
 export { 
   displayProjectTabs, 
   colorProjectTab,
-  setUpWireframeForAllTodos
+  setWireframeForAllTodos
 };
