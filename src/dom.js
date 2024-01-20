@@ -111,7 +111,8 @@ function setUpWireframeForAllTodos() {
     editBtn.setAttribute('data-title', todo.title);
     deleteBtn.setAttribute('data-title', todo.title);
     checkbox.setAttribute('type', 'checkbox');
-
+    checkbox.setAttribute('name', 'checkbox');
+    
     editBtn.textContent = 'Edit';
     deleteBtn.textContent = 'X';
     viewModeBtn.textContent = '▼';
@@ -218,11 +219,18 @@ function openTodoEditModal(btnNode) {
   dialog.setAttribute('open', '');
   titleInput.setAttribute('type', 'text');
   titleInput.setAttribute('value', `${todoObj.title}`);
+  titleInput.setAttribute('id', 'title');
+  titleInput.setAttribute('name', 'title');
   dateInput.setAttribute('type', 'date');
   dateInput.setAttribute('value', `${todoObj.dueDate}`);
+  dateInput.setAttribute('id', 'due-date');
+  dateInput.setAttribute('name', 'due-date');
+  noteInput.setAttribute('id', 'note');
+  noteInput.setAttribute('name', 'note');
   saveBtn.setAttribute('type', 'submit');
   priorityLabel.setAttribute('for', 'priority');
   prioritySelect.setAttribute('id', 'priority');
+  prioritySelect.setAttribute('name', 'priority');
   priorityOptionLow.setAttribute('value', 'low');
   priorityOptionMedium.setAttribute('value', 'medium');
   priorityOptionHigh.setAttribute('value', 'high');
