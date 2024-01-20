@@ -3,7 +3,7 @@ import { todoList } from "./todo";
 import { 
   findTodosForCurrentProject,
   returnTodoObj,
-  findProjectInstance,
+  returnProjectObj,
   updateTodoData,
   returnNodeListOfTodoTabs,
   toggleTodoStatus,
@@ -11,16 +11,25 @@ import {
   setCurrentProject,
   removeDataOfDeletedProject,
   createNewProject,
-  createNewTodo
+  createNewTodo,
+  updateProjectData
 } from "./controller";
+
+
+// HELPER FUNCTIONS
+function clearContent(node) {
+  node.textContent = '';
+}
+
+function appendChildren(node, childrenArr) {
+  for (const child of childrenArr) {
+    node.appendChild(child)
+  };
+}
 
 
 // PROJECT LIST
 const projectsDiv = document.querySelector('.projects');
-
-function clearContent(node) {
-  node.textContent = '';
-}
 
 function displayProjectTabs() {
   clearContent(projectsDiv);
@@ -28,20 +37,27 @@ function displayProjectTabs() {
     const tab = document.createElement('div');
     const titlePara = document.createElement('p');
     const deleteBtn = document.createElement('button');
+    const editBtn = document.createElement('button');
 
     tab.classList.add('tab');
+    editBtn.classList.add('edit');
 
     tab.setAttribute('data-title', project.title);
     tab.setAttribute('data-status', '');
     deleteBtn.setAttribute('data-title', project.title);
+    editBtn.setAttribute('data-title', project.title);
 
     titlePara.textContent = project.title;
     deleteBtn.textContent = 'X';
+    editBtn.textContent = 'Edit';
 
     titlePara.onclick = (event) => {
       setCurrentProject(event.target.parentNode);
       colorProjectTab(event.target.parentNode);
       setWireframeForAllTodos();
+    };
+    editBtn.onclick = (event) => {
+      openProjectEditModal(event.target);
     };
     deleteBtn.onclick = (event) => {
       removeDataOfDeletedProject(event.target.parentNode); 
@@ -62,7 +78,9 @@ function displayProjectTabs() {
     };
 
     tab.appendChild(titlePara);
-    if (project !== projectList[0]) tab.appendChild(deleteBtn);
+    if (project !== projectList[0]) {
+      appendChildren(tab, [editBtn, deleteBtn]);
+    }
     projectsDiv.appendChild(tab);
   };
 }
@@ -73,6 +91,56 @@ function colorProjectTab(projectTabNode) {
     tab.setAttribute('data-status', '');
   }
   projectTabNode.setAttribute('data-status', 'open');
+}
+
+function openProjectEditModal(btnNode) {
+  const projectObj = returnProjectObj(btnNode);
+
+  const body = document.querySelector('body');
+
+  const dialog = document.createElement('dialog');
+  const form = document.createElement('form');
+  const titleInput = document.createElement('input');
+  const saveBtn = document.createElement('button');
+  const cancelBtn = document.createElement('button');
+  const descriptionInput = document.createElement('textarea');
+
+  dialog.classList.add('edit-project');
+  descriptionInput.classList.add('description');
+  
+  dialog.setAttribute('open', '');
+  titleInput.setAttribute('type', 'text');
+  titleInput.setAttribute('value', `${projectObj.title}`);
+  titleInput.setAttribute('id', 'title');
+  titleInput.setAttribute('name', 'title');
+  descriptionInput.setAttribute('id', 'note');
+  descriptionInput.setAttribute('name', 'note');
+  saveBtn.setAttribute('type', 'submit');
+  cancelBtn.setAttribute('type', 'reset');
+
+  saveBtn.textContent = 'Save';
+  cancelBtn.textContent = 'Cancel';
+  descriptionInput.textContent = projectObj.description;
+
+  saveBtn.onclick = (event) => {
+    event.preventDefault();
+    updateProjectData(
+      projectObj,
+      [titleInput, descriptionInput] 
+    );
+    displayProjectTabs();
+    dialog.close();
+  };
+  cancelBtn.onclick = () => {dialog.close()};
+
+  form.appendChild(titleInput);
+  form.appendChild(descriptionInput);
+  form.appendChild(saveBtn);
+  form.appendChild(cancelBtn);
+
+  dialog.appendChild(form);
+
+  body.appendChild(dialog);
 }
 
 

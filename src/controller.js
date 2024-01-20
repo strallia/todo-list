@@ -24,7 +24,7 @@ function returnTodoObj(node) {
   return todoObj;
 }
 
-function findProjectInstance(projectTabNode) {
+function returnProjectObj(projectTabNode) {
   const projectTitle = projectTabNode.getAttribute('data-title');
   const projectObj = projectList.find((project) => {
       return project.title === projectTitle;
@@ -41,6 +41,15 @@ function updateTodoData(todoObj, inputArr) {
   todoObj.dueDate = dueDate;
   todoObj.note = note;
   todoObj.priority = priority;
+}
+
+function updateProjectData(projectObj, inputArr) {
+  const valuesArr = inputArr.map((input) => {
+    return input.value;
+  });
+  const [title, description] = valuesArr;
+  projectObj.title = title;
+  projectObj.description = description;
 }
 
 function returnNodeListOfTodoTabs() {
@@ -60,12 +69,12 @@ function removeTodoFromList(node) {
 }
 
 function setCurrentProject(node) {
-  const projectObj = findProjectInstance(node);
+  const projectObj = returnProjectObj(node);
   projectObj.setAsCurrentProject();
 }
 
 function removeDataOfDeletedProject(node) {
-  const removedProjectObj = findProjectInstance(node);
+  const removedProjectObj = returnProjectObj(node);
   const removedTodos = todoList.filter((todo) => {
     return todo.project === removedProjectObj.title;
   });
@@ -89,8 +98,9 @@ function createNewTodo(project, title, dueDate, note, priority, status) {
 export { 
   findTodosForCurrentProject,
   returnTodoObj,
-  findProjectInstance,
+  returnProjectObj,
   updateTodoData,
+  updateProjectData,
   returnNodeListOfTodoTabs,
   toggleTodoStatus,
   removeTodoFromList,
