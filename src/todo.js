@@ -17,10 +17,6 @@ class TodoItem {
     todoList.splice(index, 1);
   }
 
-  edit(property, string) {
-    this[property] = string;
-  }
-
   toggleStatus() {
     this.status = this.status === 'open' ? 'closed' : 'open';
   }

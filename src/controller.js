@@ -1,5 +1,8 @@
-import { currentProject, projectList } from "./project";
-import { todoList } from "./todo";
+// This file handles data retrieval, manipulation, 
+// and creation between the DOM and todo/project scripts
+
+import { currentProject, projectList, createProject } from "./project";
+import { todoList, createTodo } from "./todo";
 
 function findTodosForCurrentProject() {
   const projectTitle = currentProject.title;
@@ -46,10 +49,53 @@ function returnNodeListOfTodoTabs() {
   return [...nodeList];
 }
 
+function toggleTodoStatus(node) {
+  const todoObj = returnTodoObj(node);
+  todoObj.toggleStatus();
+}
+
+function removeTodoFromList(node) {
+  const todoObj = returnTodoObj(node);
+  todoObj.removeFromList();
+}
+
+function setCurrentProject(node) {
+  const projectObj = findProjectInstance(node);
+  projectObj.setAsCurrentProject();
+}
+
+function removeDataOfDeletedProject(node) {
+  const removedProjectObj = findProjectInstance(node);
+  const removedTodos = todoList.filter((todo) => {
+    return todo.project === removedProjectObj.title;
+  });
+  removedTodos.forEach((todo) => {todo.removeFromList()});
+  removedProjectObj.removeFromList();
+}
+
+function createNewProject(title, description) {
+  const newProject = createProject(title, description);
+  newProject.addToList();
+}
+
+function createNewTodo(project, title, dueDate, note, priority, status) {
+  const newTodo = createTodo(
+    project, title, dueDate, note, priority, status
+  );
+  newTodo.addToList();
+}
+
+
 export { 
   findTodosForCurrentProject,
   returnTodoObj,
   findProjectInstance,
   updateTodoData,
-  returnNodeListOfTodoTabs
+  returnNodeListOfTodoTabs,
+  toggleTodoStatus,
+  removeTodoFromList,
+  setCurrentProject,
+  removeDataOfDeletedProject,
+  createNewProject,
+  createNewTodo
 };

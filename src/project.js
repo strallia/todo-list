@@ -29,7 +29,7 @@ function createProject(title, description) {
 // An array of ProjectItem instances
 const projectList = [
   createProject(
-    "All My Todo's", 
+    "All My Todos", 
     "Project containing all my todo's"
   ),
   createProject(

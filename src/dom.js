@@ -1,11 +1,16 @@
-import { createProject, currentProject, projectList } from "./project";
-import { createTodo, todoList } from "./todo";
+import { currentProject, projectList } from "./project";
 import { 
   findTodosForCurrentProject,
   returnTodoObj,
   findProjectInstance,
   updateTodoData,
-  returnNodeListOfTodoTabs
+  returnNodeListOfTodoTabs,
+  toggleTodoStatus,
+  removeTodoFromList,
+  setCurrentProject,
+  removeDataOfDeletedProject,
+  createNewProject,
+  createNewTodo
 } from "./controller";
 
 
@@ -28,30 +33,16 @@ function displayProjectTabs() {
     deleteBtn.textContent = 'X';
 
     titlePara.onclick = (event) => {
-      const projectObj = findProjectInstance(event.target.parentNode);
-      projectObj.setAsCurrentProject();
+      setCurrentProject(event.target.parentNode);
       colorProjectTab(event.target.parentNode);
       setUpWireframeForAllTodos();
     };
     deleteBtn.onclick = (event) => {
-      const removedProjectObj = findProjectInstance(event.target.parentNode);
-
-      // delete todos of that project
-      const removedTodos = todoList.filter((todo) => {
-        return todo.project === removedProjectObj.title;
-      });
-      removedTodos.forEach((todo) => {todo.removeFromList()});
-
-      // remove project from master list
-      removedProjectObj.removeFromList();
+      removeDataOfDeletedProject(event.target.parentNode); 
       displayProjectTabs();
-
-      // set default project as current project
-      projectList[0].setAsCurrentProject();
-      const defaultProjectTabNode = document.querySelector(
-        `.projects > .tab[data-title="${projectList[0].title}"]`
-      );
-      colorProjectTab(defaultProjectTabNode);
+      const defaultProjectNode = projectsDiv.firstChild;
+      setCurrentProject(defaultProjectNode);
+      colorProjectTab(defaultProjectNode);
       setUpWireframeForAllTodos();
     };
 
@@ -112,21 +103,20 @@ function setUpWireframeForAllTodos() {
     deleteBtn.setAttribute('data-title', todo.title);
     checkbox.setAttribute('type', 'checkbox');
     checkbox.setAttribute('name', 'checkbox');
-    
+    checkbox.setAttribute('data-title', todo.title);
+
     editBtn.textContent = 'Edit';
     deleteBtn.textContent = 'X';
     viewModeBtn.textContent = '▼';
 
     checkbox.onclick = (event) => {
-      const todoObj = returnTodoObj(event.target.parentNode);
-      todoObj.toggleStatus();
+      toggleTodoStatus(event.target);
     };
     editBtn.onclick = (event) => {
       openTodoEditModal(event.target);
     };
     deleteBtn.onclick = (event) => {
-      const todoObj = returnTodoObj(event.target);
-      todoObj.removeFromList();
+      removeTodoFromList(event.target);
       setUpWireframeForAllTodos();
     };
     viewModeBtn.onclick = (event) => {
@@ -307,23 +297,16 @@ const submitProjectBtn = document.querySelector(".add-project button[type='submi
 submitProjectBtn.onclick = (event) => {
   event.preventDefault();
 
-  // create instance of new project
+  // create new project instance
   const title = projectTitleInput.value;
   const description = projectDescriptionInput.value;
-  const newProject = createProject(title, description);
-  newProject.addToList();
+  createNewProject(title, description);
 
-  // set new project instance as current project
-  newProject.setAsCurrentProject();
-
-  // re-display project tabs
+  // open new project
   displayProjectTabs();
-  const newProjectTabNode = document.querySelector(
-    `.projects > .tab[data-title="${title}"]`
-  );
-  colorProjectTab(newProjectTabNode);
-
-  // display new project's empty todo list
+  const newProjectNode = projectsDiv.lastChild;
+  setCurrentProject(newProjectNode);
+  colorProjectTab(newProjectNode);
   setUpWireframeForAllTodos();
   
   projectForm.reset();
@@ -351,8 +334,7 @@ submitTodoBtn.onclick = (event) => {
   const dueDate = todoDueDateInput.value;
   const note = todoNoteInput.value;
   const priority = todoPriorityInput.value;
-  const newTodo = createTodo(project, title, dueDate, note, priority);
-  newTodo.addToList();
+  createNewTodo(project, title, dueDate, note, priority);
   setUpWireframeForAllTodos();
   todoForm.reset();
   todoDialog.close();
