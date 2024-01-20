@@ -1,4 +1,5 @@
 import { currentProject, projectList } from "./project";
+import { todoList } from "./todo";
 import { 
   findTodosForCurrentProject,
   returnTodoObj,
@@ -70,7 +71,9 @@ function clearContent(node) {
 
 function setUpWireframeForAllTodos() {
   clearContent(todosDiv);
-  const todos = findTodosForCurrentProject();
+  const todos = currentProject === projectList[0] 
+    ? todoList
+    : findTodosForCurrentProject();
   for (const todo of todos) {
     const tab = document.createElement('div');
     const headerDiv = document.createElement('div');
