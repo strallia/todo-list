@@ -2,9 +2,10 @@ import { createProject, currentProject, projectList } from "./project";
 import { createTodo, todoList } from "./todo";
 import { 
   findTodosForCurrentProject,
-  findTodoInstance,
+  returnTodoObj,
   findProjectInstance,
-  updateTodoData
+  updateTodoData,
+  returnNodeListOfTodoTabs
 } from "./controller";
 
 
@@ -30,7 +31,7 @@ function displayProjectTabs() {
       const projectObj = findProjectInstance(event.target.parentNode);
       projectObj.setAsCurrentProject();
       colorProjectTab(event.target.parentNode);
-      displayTodoTabs();
+      setUpWireframeForAllTodos();
     };
     deleteBtn.onclick = (event) => {
       const removedProjectObj = findProjectInstance(event.target.parentNode);
@@ -51,7 +52,7 @@ function displayProjectTabs() {
         `.projects > .tab[data-title="${projectList[0].title}"]`
       );
       colorProjectTab(defaultProjectTabNode);
-      displayTodoTabs();
+      setUpWireframeForAllTodos();
     };
 
     tab.appendChild(titlePara);
@@ -72,72 +73,128 @@ function colorProjectTab(projectTabNode) {
 // TODO LIST
 const todosDiv = document.querySelector('.todos');
 
-function displayTodoTabs() {
-  todosDiv.textContent = '';
+function clearContent(node) {
+  node.textContent = '';
+}
+
+function setUpWireframeForAllTodos() {
+  clearContent(todosDiv);
   const todos = findTodosForCurrentProject();
   for (const todo of todos) {
     const tab = document.createElement('div');
-    const checkbox = document.createElement('input');
+    const headerDiv = document.createElement('div');
     const titlePara = document.createElement('p');
-    const dueDateDiv = document.createElement('div');
+    const dueDatePara = document.createElement('div');
+    const detailsDiv = document.createElement('div');
+    const notePara = document.createElement('p');
+    const priorityPara = document.createElement('p');
+    const btnsDiv = document.createElement('div');
     const editBtn = document.createElement('button');
     const deleteBtn = document.createElement('button');
-    const expandBtn = document.createElement('button');
-    const collapseBtn = document.createElement('button');
+    const viewModeBtn = document.createElement('button');
+    const checkbox = document.createElement('input');
 
     tab.classList.add('tab');
+    headerDiv.classList.add('header');
     titlePara.classList.add('title');
-    dueDateDiv.classList.add('due-date');
-    editBtn.classList.add('mode');
+    dueDatePara.classList.add('due-date');
+    detailsDiv.classList.add('details', 'hidden');
+    notePara.classList.add('note');
+    priorityPara.classList.add('priority');
+    btnsDiv.classList.add('buttons');
+    editBtn.classList.add('edit');
     deleteBtn.classList.add('delete');
-    expandBtn.classList.add('expand');
-    collapseBtn.classList.add('collapse');
-
-    collapseBtn.style.display = 'none';
+    viewModeBtn.classList.add('view-mode', 'down');
 
     tab.setAttribute('data-title', todo.title);
+    viewModeBtn.setAttribute('data-title', todo.title);
+    editBtn.setAttribute('data-title', todo.title);
+    deleteBtn.setAttribute('data-title', todo.title);
     checkbox.setAttribute('type', 'checkbox');
 
-    titlePara.textContent = todo.title;
-    dueDateDiv.textContent = todo.dueDate;
-    editBtn .textContent = 'Edit';
+    editBtn.textContent = 'Edit';
     deleteBtn.textContent = 'X';
-    expandBtn.textContent = '▼';
-    collapseBtn.textContent = '▲';
+    viewModeBtn.textContent = '▼';
 
     checkbox.onclick = (event) => {
-      const todoObj = findTodoInstance(event.target.parentNode);
+      const todoObj = returnTodoObj(event.target.parentNode);
       todoObj.toggleStatus();
     };
     editBtn.onclick = (event) => {
-      const todoNode = event.target.parentNode;
-      const todoObj = findTodoInstance(todoNode);
-      openTodoEditModal(todoObj);
+      openTodoEditModal(event.target);
     };
     deleteBtn.onclick = (event) => {
-      const todoObj = findTodoInstance(event.target.parentNode);
+      const todoObj = returnTodoObj(event.target);
       todoObj.removeFromList();
-      displayTodoTabs();
+      setUpWireframeForAllTodos();
     };
-    expandBtn.onclick = () => {
-      expandTodo(todo);
+    viewModeBtn.onclick = (event) => {
+      rotateViewModeBtn(event.target);
+      toggleDisplayOfDetails(event.target);
     };
-    collapseBtn.onclick = () => {
-      collapseTodo(todo);
-    };
+
+    headerDiv.appendChild(titlePara);
+    headerDiv.appendChild(dueDatePara);
+
+    btnsDiv.appendChild(editBtn);
+    btnsDiv.appendChild(deleteBtn);
+    btnsDiv.appendChild(viewModeBtn);
+
+    detailsDiv.appendChild(notePara);
+    detailsDiv.appendChild(priorityPara);
 
     tab.appendChild(checkbox);
-    tab.appendChild(titlePara);
-    tab.appendChild(dueDateDiv);
-    tab.appendChild(editBtn);
-    tab.appendChild(deleteBtn);
-    tab.appendChild(expandBtn);
-    tab.appendChild(collapseBtn);
+    tab.appendChild(headerDiv);
+    tab.appendChild(btnsDiv);
+    tab.appendChild(detailsDiv);
+
     todosDiv.appendChild(tab);
   };
+  displayTodoDetails();
 }
 
-function openTodoEditModal(todoObj) {
+function displayTodoDetails() {
+  const todosNodeList = returnNodeListOfTodoTabs();
+  for (const todoNode of todosNodeList) {
+    const todoObj = returnTodoObj(todoNode);
+
+    const titlePara = todoNode.querySelector('.title');
+    const dueDatePara = todoNode.querySelector('.due-date');
+    const notePara = todoNode.querySelector('.note');
+    const priorityPara = todoNode.querySelector('.priority');
+
+    titlePara.textContent = todoObj.title;
+    dueDatePara.textContent = todoObj.dueDate;
+    notePara.textContent = todoObj.note;
+    priorityPara.textContent = 'Priority: ' + todoObj.priority;
+  }
+}
+
+function rotateViewModeBtn(btnNode) {
+  if (btnNode.classList.contains('down')) {
+    btnNode.classList.remove('down');
+    btnNode.classList.add('up');
+  } else {
+    btnNode.classList.remove('up');
+    btnNode.classList.add('down');
+  }
+}
+
+function toggleDisplayOfDetails(btnNode) {
+  const todoTitle = btnNode.getAttribute('data-title');
+  const todoNode = todosDiv.querySelector(`.tab[data-title="${todoTitle}`);
+  const detailsDiv = todoNode.querySelector('.details');
+
+  if (detailsDiv.classList.contains('hidden')) {
+    detailsDiv.classList.remove('hidden');
+  } else {
+    detailsDiv.classList.add('hidden');
+  }
+}
+
+function openTodoEditModal(btnNode) {
+  const todoObj = returnTodoObj(btnNode);
+
   const body = document.querySelector('body');
 
   const dialog = document.createElement('dialog');
@@ -196,7 +253,7 @@ function openTodoEditModal(todoObj) {
       todoObj,
       [titleInput, dateInput, noteInput, prioritySelect] 
     );
-    displayTodoTabs();
+    setUpWireframeForAllTodos();
     dialog.close();
   };
   cancelBtn.onclick = () => {
@@ -220,41 +277,6 @@ function openTodoEditModal(todoObj) {
   dialog.appendChild(form);
 
   body.appendChild(dialog);
-}
-
-function expandTodo(todoObj) {
-  const todoNode = document.querySelector(`.todos > .tab[data-title='${todoObj.title}']`);
-  const expandBtn = todoNode.querySelector('.expand');
-  const collapseBtn = todoNode.querySelector('.collapse');
-
-  const noteDiv = document.createElement('div');
-  const priorityDiv = document.createElement('div');
-
-  noteDiv.classList.add('note');
-  priorityDiv.classList.add('priority');
-
-  expandBtn.style.display = 'none';
-  collapseBtn.style.display = '';
-
-  noteDiv.textContent = todoObj.note;
-  priorityDiv.textContent = `priority: ${todoObj.priority}`;
-
-  todoNode.appendChild(noteDiv);
-  todoNode.appendChild(priorityDiv);
-}
-
-function collapseTodo(todoObj) {
-  const todoNode = document.querySelector(`.todos > .tab[data-title='${todoObj.title}']`);
-  const note = todoNode.querySelector('.note');
-  const priority = todoNode.querySelector('.priority');
-  const expandBtn = todoNode.querySelector('.expand');
-  const collapseBtn = todoNode.querySelector('.collapse');
-
-  expandBtn.style.display = 'none';
-  collapseBtn.style.display = '';
-
-  note.classList.add('hidden');
-  priority.classList.add('hidden');
 }
 
 
@@ -294,7 +316,7 @@ submitProjectBtn.onclick = (event) => {
   colorProjectTab(newProjectTabNode);
 
   // display new project's empty todo list
-  displayTodoTabs();
+  setUpWireframeForAllTodos();
   
   projectForm.reset();
   projectDialog.close(); 
@@ -323,7 +345,7 @@ submitTodoBtn.onclick = (event) => {
   const priority = todoPriorityInput.value;
   const newTodo = createTodo(project, title, dueDate, note, priority);
   newTodo.addToList();
-  displayTodoTabs();
+  setUpWireframeForAllTodos();
   todoForm.reset();
   todoDialog.close();
 }
@@ -336,6 +358,6 @@ resetTodoBtn.onclick = () => {
 
 export { 
   displayProjectTabs, 
-  displayTodoTabs, 
-  colorProjectTab
+  colorProjectTab,
+  setUpWireframeForAllTodos
 };

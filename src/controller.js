@@ -13,8 +13,8 @@ function findTodosForCurrentProject() {
   }
 }
 
-function findTodoInstance(todoTabNode) {
-  const todoTitle = todoTabNode.getAttribute('data-title');
+function returnTodoObj(node) {
+  const todoTitle = node.getAttribute('data-title');
   const todoObj = todoList.find((todo) => {
     return todo.title === todoTitle;
   });
@@ -40,9 +40,16 @@ function updateTodoData(todoObj, inputArr) {
   todoObj.priority = priority;
 }
 
+function returnNodeListOfTodoTabs() {
+  const todosDiv = document.querySelector('.todos');
+  const nodeList = todosDiv.querySelectorAll('.tab');
+  return [...nodeList];
+}
+
 export { 
   findTodosForCurrentProject,
-  findTodoInstance,
+  returnTodoObj,
   findProjectInstance,
-  updateTodoData
+  updateTodoData,
+  returnNodeListOfTodoTabs
 };

@@ -54,20 +54,25 @@ div.todos {
     border: 1px dashed orange;
     padding: 5px;
     display: grid;
-    grid-template-columns: auto 1fr auto auto auto auto;
+    grid-template-columns: auto 1fr auto;
     gap: 5px;
     align-items: center;
 
-    p {
-        margin-right: auto;
-      }
+    .details {
+      grid-column: 1/4;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .header,
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 5px;
+    }
     .note {
     background-color: whitesmoke;
-    grid-column: 2/6;
     border: 1px solid grey;
-    }
-    .priority {
-      grid-column: 2/6;
     }
     button {
       height: min-content;
@@ -75,16 +80,12 @@ div.todos {
     .hidden {
       display: none;
     }
+    button.view-mode.up {
+    transform: rotate(180deg);
+    }
   }
-  button.collapse {
-  }
-  button.expand {
-  }
-}
-dialog.edit-todo {
   
 }
-
 
 
 /* FORMS */
