@@ -18,8 +18,12 @@ import {
 // PROJECT LIST
 const projectsDiv = document.querySelector('.projects');
 
+function clearContent(node) {
+  node.textContent = '';
+}
+
 function displayProjectTabs() {
-  projectsDiv.textContent = '';
+  clearContent(projectsDiv);
   for (const project of projectList) {
     const tab = document.createElement('div');
     const titlePara = document.createElement('p');
@@ -64,10 +68,6 @@ function colorProjectTab(projectTabNode) {
 
 // TODO LIST
 const todosDiv = document.querySelector('.todos');
-
-function clearContent(node) {
-  node.textContent = '';
-}
 
 function setUpWireframeForAllTodos() {
   clearContent(todosDiv);
