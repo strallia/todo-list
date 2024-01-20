@@ -416,6 +416,18 @@ const todoDueDateInput = document.querySelector(".add-todo input#due-date");
 const todoNoteInput = document.querySelector(".add-todo textarea");
 const todoPriorityInput = document.querySelector(".add-todo select");
 
+function todaysDate() {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  let mm = (today.getMonth() + 1).toString();
+  let dd = (today.getDate()).toString();
+  
+  if (mm.length === 1) {mm = '0' + mm};
+  if (dd.length === 1) {dd = '0' + dd};
+  return yyyy + '-' + mm + '-' + dd;
+}
+todoDueDateInput.setAttribute('min', todaysDate());
+
 const submitTodoBtn = document.querySelector(".add-todo button[type='submit']");
 submitTodoBtn.onclick = (event) => {
   event.preventDefault();
