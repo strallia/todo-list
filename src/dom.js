@@ -385,6 +385,7 @@ const projectDescriptionInput = document.querySelector(".add-project textarea");
 const submitProjectBtn = document.querySelector(".add-project button[type='submit']");
 submitProjectBtn.onclick = (event) => {
   event.preventDefault();
+  if (!projectForm.checkValidity()) return projectForm.reportValidity();
 
   // create new project instance
   const title = projectTitleInput.value;
@@ -418,6 +419,7 @@ const todoPriorityInput = document.querySelector(".add-todo select");
 const submitTodoBtn = document.querySelector(".add-todo button[type='submit']");
 submitTodoBtn.onclick = (event) => {
   event.preventDefault();
+  if (!todoForm.checkValidity()) return todoForm.reportValidity();
   const project = currentProject.title;  
   const title = todoTitleInput.value;
   const dueDate = todoDueDateInput.value;

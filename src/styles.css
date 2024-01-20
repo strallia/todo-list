@@ -107,4 +107,8 @@ dialog {
     background-color: white;
     padding: 20px;
   }
+  label.required:after {
+    content: ' *';
+    color: red;
+  }
 }
