@@ -148,13 +148,13 @@ function openProjectEditModal(btnNode) {
   };
   cancelBtn.onclick = () => {dialog.close()};
 
-  form.appendChild(titleInput);
-  form.appendChild(descriptionInput);
-  form.appendChild(saveBtn);
-  form.appendChild(cancelBtn);
-
+  appendChildren(form, [
+    titleInput,
+    descriptionInput,
+    saveBtn,
+    cancelBtn
+  ]);
   dialog.appendChild(form);
-
   body.appendChild(dialog);
 }
 
@@ -220,21 +220,15 @@ function displayTodoTabsOfCurrentProject() {
       toggleDisplayOfDetails(event.target);
     };
 
-    headerDiv.appendChild(titlePara);
-    headerDiv.appendChild(dueDatePara);
-
-    btnsDiv.appendChild(editBtn);
-    btnsDiv.appendChild(deleteBtn);
-    btnsDiv.appendChild(viewModeBtn);
-
-    detailsDiv.appendChild(notePara);
-    detailsDiv.appendChild(priorityPara);
-
-    tab.appendChild(checkbox);
-    tab.appendChild(headerDiv);
-    tab.appendChild(btnsDiv);
-    tab.appendChild(detailsDiv);
-
+    appendChildren(headerDiv, [titlePara, dueDatePara]);
+    appendChildren(btnsDiv, [editBtn, deleteBtn, viewModeBtn]);
+    appendChildren(detailsDiv, [notePara, priorityPara]);
+    appendChildren(tab, [
+      checkbox, 
+      headerDiv,
+      btnsDiv,
+      detailsDiv
+    ]);
     todosDiv.appendChild(tab);
   };
   displayTodoDetails();
@@ -354,22 +348,21 @@ function openTodoEditModal(btnNode) {
     dialog.close();
   }
 
-  prioritySelect.appendChild(priorityOptionLow);
-  prioritySelect.appendChild(priorityOptionMedium);
-  prioritySelect.appendChild(priorityOptionHigh);
-
-  priorityContainer.appendChild(priorityLabel);
-  priorityContainer.appendChild(prioritySelect);
-
-  form.appendChild(titleInput);
-  form.appendChild(dateInput);
-  form.appendChild(noteInput);
-  form.appendChild(priorityContainer);
-  form.appendChild(saveBtn);
-  form.appendChild(cancelBtn);
-
+  appendChildren(prioritySelect, [
+    priorityOptionLow,
+    priorityOptionMedium,
+    priorityOptionHigh
+  ]);
+  appendChildren(priorityContainer, [priorityLabel, prioritySelect]);
+  appendChildren(form, [
+    titleInput,
+    dateInput,
+    noteInput,
+    priorityContainer,
+    saveBtn,
+    cancelBtn
+  ]);
   dialog.appendChild(form);
-
   body.appendChild(dialog);
 }
 
