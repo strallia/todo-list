@@ -257,9 +257,12 @@ function displayTodoDetails() {
     }
 
     titlePara.textContent = todoObj.title;
-    dueDatePara.textContent = formatDueDate();
+    if (todoObj.dueDate) {
+      dueDatePara.textContent = formatDueDate();
+    }
     notePara.textContent = todoObj.note;
     priorityPara.textContent = 'Priority: ' + todoObj.priority;
+    console.log(todoObj)
   }
 }
 
