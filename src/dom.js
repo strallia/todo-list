@@ -69,13 +69,13 @@ function displayProjectTabs() {
         const defaultProjectNode = projectsDiv.firstChild;
         setCurrentProject(defaultProjectNode);
         colorProjectTab(defaultProjectNode);
-        displayTodoTabsOfCurrentProject();
       } else {
         const currentProjectNode = projectsDiv.querySelector(
           `.tab[data-id="${currentProject.id}"]`
         );
         colorProjectTab(currentProjectNode);
       }
+      displayTodoTabsOfCurrentProject();
     };
 
     tab.appendChild(titlePara);

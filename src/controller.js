@@ -79,7 +79,7 @@ function setCurrentProject(node) {
 function removeDataOfDeletedProject(node) {
   const removedProjectObj = returnProjectObj(node);
   const removedTodos = todoList.filter((todo) => {
-    return todo.project === removedProjectObj.title;
+    return todo.projectID === removedProjectObj.id;
   });
   removedTodos.forEach((todo) => {todo.removeFromList()});
   removedProjectObj.removeFromList();
