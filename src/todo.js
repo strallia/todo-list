@@ -1,11 +1,12 @@
 class TodoItem {
-  constructor(project, title, dueDate, note, priority, status = 'open') {
-    this.project = project;
+  constructor(projectID, todoID, title, dueDate, note, priority) {
+    this.projectID = projectID;
+    this.todoID = todoID;
     this.title = title;
     this.dueDate = dueDate;
     this.note = note;
     this.priority = priority;
-    this.status = status;
+    this.status = 'open';
   }
 
   addToList() {
@@ -22,28 +23,31 @@ class TodoItem {
   }
 }
 
-function createTodo(project, title, dueDate, note, priority, status) {
-  return new TodoItem(project, title, dueDate, note, priority, status);
+function createTodo(projectID, todoID, title, dueDate, note, priority) {
+  return new TodoItem(projectID, todoID, title, dueDate, note, priority);
 }
 
 // An array of TodoItem instances
 const todoList = [
   createTodo(
-    'All My Todos',
+    '0',
+    '0',
     'Default Todo',
     '2024-01-31',
     'Notes show here',
     'high',
   ),
   createTodo(
-    'Another Project',
+    '1',
+    '1',
     'First Todo Item for Sub-project',
     '2024-01-16',
     'Some random note for this todo',
     'medium',
   ),
   createTodo(
-    'Another Project',
+    '1',
+    '2',
     'Second Todo Item for Sub-project',
     '2024-02-22',
     'Things I gotta remember about this task',

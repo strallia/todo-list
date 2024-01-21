@@ -43,10 +43,10 @@ function displayProjectTabs() {
     tab.classList.add('tab');
     editBtn.classList.add('edit');
 
-    tab.setAttribute('data-title', project.title);
+    tab.setAttribute('data-id', project.id);
     tab.setAttribute('data-status', '');
-    deleteBtn.setAttribute('data-title', project.title);
-    editBtn.setAttribute('data-title', project.title);
+    deleteBtn.setAttribute('data-id', project.id);
+    editBtn.setAttribute('data-id', project.id);
 
     titlePara.textContent = project.title;
     deleteBtn.textContent = 'X';
@@ -64,15 +64,15 @@ function displayProjectTabs() {
       removeDataOfDeletedProject(event.target.parentNode); 
       displayProjectTabs();
 
-      const deletedProjectTitle = event.target.getAttribute('data-title');
-      if (currentProject.title === deletedProjectTitle) {
+      const deletedProjectID = event.target.getAttribute('data-id');
+      if (currentProject.id === deletedProjectID) {
         const defaultProjectNode = projectsDiv.firstChild;
         setCurrentProject(defaultProjectNode);
         colorProjectTab(defaultProjectNode);
         displayTodoTabsOfCurrentProject();
       } else {
         const currentProjectNode = projectsDiv.querySelector(
-          `.tab[data-title="${currentProject.title}"]`
+          `.tab[data-id="${currentProject.id}"]`
         );
         colorProjectTab(currentProjectNode);
       }
@@ -141,7 +141,7 @@ function openProjectEditModal(btnNode) {
     // open the edited project's tab
     displayProjectTabs();
     const editedProjectNode = projectsDiv.querySelector(
-      `.tab[data-title="${projectObj.title}`
+      `.tab[data-id="${projectObj.id}`
     );
     setCurrentProject(editedProjectNode);
     colorProjectTab(editedProjectNode);
@@ -196,13 +196,13 @@ function displayTodoTabsOfCurrentProject() {
     deleteBtn.classList.add('delete');
     viewModeBtn.classList.add('view-mode', 'down');
 
-    tab.setAttribute('data-title', todo.title);
-    viewModeBtn.setAttribute('data-title', todo.title);
-    editBtn.setAttribute('data-title', todo.title);
-    deleteBtn.setAttribute('data-title', todo.title);
+    tab.setAttribute('data-todo-id', todo.todoID);
+    viewModeBtn.setAttribute('data-todo-id', todo.todoID);
+    editBtn.setAttribute('data-todo-id', todo.todoID);
+    deleteBtn.setAttribute('data-todo-id', todo.todoID);
     checkbox.setAttribute('type', 'checkbox');
     checkbox.setAttribute('name', 'checkbox');
-    checkbox.setAttribute('data-title', todo.title);
+    checkbox.setAttribute('data-todo-id', todo.todoID);
 
     editBtn.textContent = 'Edit';
     deleteBtn.textContent = 'X';
@@ -262,7 +262,6 @@ function displayTodoDetails() {
     }
     notePara.textContent = todoObj.note;
     priorityPara.textContent = 'Priority: ' + todoObj.priority;
-    console.log(todoObj)
   }
 }
 
@@ -277,8 +276,8 @@ function rotateViewModeBtn(btnNode) {
 }
 
 function toggleDisplayOfDetails(btnNode) {
-  const todoTitle = btnNode.getAttribute('data-title');
-  const todoNode = todosDiv.querySelector(`.tab[data-title="${todoTitle}`);
+  const todoID = btnNode.getAttribute('data-todo-id');
+  const todoNode = todosDiv.querySelector(`.tab[data-todo-id="${todoID}`);
   const detailsDiv = todoNode.querySelector('.details');
 
   if (detailsDiv.classList.contains('hidden')) {
@@ -448,13 +447,12 @@ todoDueDateInput.setAttribute('min', todaysDate());
 const submitTodoBtn = document.querySelector(".add-todo button[type='submit']");
 submitTodoBtn.onclick = (event) => {
   event.preventDefault();
-  if (!todoForm.checkValidity()) return todoForm.reportValidity();
-  const project = currentProject.title;  
+  if (!todoForm.checkValidity()) return todoForm.reportValidity(); 
   const title = todoTitleInput.value;
   const dueDate = todoDueDateInput.value;
   const note = todoNoteInput.value;
   const priority = todoPriorityInput.value;
-  createNewTodo(project, title, dueDate, note, priority);
+  createNewTodo(title, dueDate, note, priority);
   displayTodoTabsOfCurrentProject();
   todoForm.reset();
   todoDialog.close();

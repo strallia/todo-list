@@ -5,25 +5,25 @@ import { currentProject, projectList, createProject } from "./project";
 import { todoList, createTodo } from "./todo";
 
 function findTodosForSelectProject(projectObj) {
-  const projectTitle = projectObj.title;
-  const filteredTodoList = todoList.filter((item) => {
-    return item.project === projectTitle;
+  const projectID = projectObj.id;
+  const filteredTodoList = todoList.filter((todo) => {
+    return todo.projectID === projectID;
   });
   return filteredTodoList;
 }
 
 function returnTodoObj(node) {
-  const todoTitle = node.getAttribute('data-title');
+  const todoID = node.getAttribute('data-todo-id');
   const todoObj = todoList.find((todo) => {
-    return todo.title === todoTitle;
+    return todo.todoID === todoID;
   });
   return todoObj;
 }
 
 function returnProjectObj(projectTabNode) {
-  const projectTitle = projectTabNode.getAttribute('data-title');
+  const projectID = projectTabNode.getAttribute('data-id');
   const projectObj = projectList.find((project) => {
-      return project.title === projectTitle;
+      return project.id === projectID;
   });
   return projectObj;
 }
@@ -86,15 +86,40 @@ function removeDataOfDeletedProject(node) {
 }
 
 function createNewProject(title, description) {
-  const newProject = createProject(title, description);
+  const newProject = createProject(assignIDForProject(), title, description);
   newProject.addToList();
 }
 
-function createNewTodo(project, title, dueDate, note, priority, status) {
+function createNewTodo(title, dueDate, note, priority) {
   const newTodo = createTodo(
-    project, title, dueDate, note, priority, status
+    assignTodoProjectID(), assignTodoID(), title, dueDate, note, priority
   );
   newTodo.addToList();
+}
+
+
+// A project and its todos must have the same id
+// Starts at 2 b/c default projects have the previous id numbers
+let projectIDCounter = 2;
+function assignIDForProject() {
+  const id = projectIDCounter.toString();
+  incrementIDCounter();
+  return id;
+}
+function incrementIDCounter() {
+  ++projectIDCounter;
+}
+function assignTodoProjectID() {
+  return currentProject.id;
+}
+
+
+// Every todo has a separate todoID to differentiate it from other todos
+let todoIDCounter = 3;
+function assignTodoID() {
+  const id = todoIDCounter.toString();
+  ++todoIDCounter;
+  return id;
 }
 
 
@@ -111,5 +136,8 @@ export {
   setCurrentProject,
   removeDataOfDeletedProject,
   createNewProject,
-  createNewTodo
+  createNewTodo,
+  assignIDForProject,
+  assignTodoProjectID,
+  assignTodoID
 };

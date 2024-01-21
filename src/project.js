@@ -1,5 +1,6 @@
 class ProjectItem {  
-  constructor(title, description) {
+  constructor(id, title, description) {
+    this.id = id;
     this.title = title;
     this.description = description;
   }
@@ -22,17 +23,19 @@ class ProjectItem {
   }
 }
 
-function createProject(title, description) {
-  return new ProjectItem(title, description);
+function createProject(id, title, description) {
+  return new ProjectItem(id, title, description);
 }
 
 // An array of ProjectItem instances
 const projectList = [
   createProject(
+    '0',
     "All My Todos", 
     "Project containing all my todo's"
   ),
   createProject(
+    '1',
     "Another Project", 
     "Project containing todos for another project"
   ),
