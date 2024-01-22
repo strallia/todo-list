@@ -50,11 +50,13 @@ if (!localStorage.length) {
       "Project containing todos for another project"
     ),
   ];
-  let currentProject = projectList[0];
+  const currentProject = projectList[0];
 
   localStorage.setItem('todoList', JSON.stringify(todoList));
   localStorage.setItem('projectList', JSON.stringify(projectList));
   localStorage.setItem('currentProject', JSON.stringify(currentProject));
+  localStorage.setItem('projectIDCounter', 2);
+  localStorage.setItem('todoIDCounter', 3);
 }
 
 

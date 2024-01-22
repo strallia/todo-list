@@ -35,6 +35,10 @@ function storageGetCurrentProject() {
   return instantiatedObj;
 }
 
+function storageGetIDCounter(typeString) {
+  return localStorage.getItem(typeString);
+}
+
 function storageSetItem(keyString, value) {
   localStorage.setItem(keyString, JSON.stringify(value));
 }
@@ -174,13 +178,12 @@ function createNewTodo(title, dueDate, note, priority) {
 }
 
 
-// A project and its todos must have the same id
-// Starts at 2 b/c default projects have the previous id numbers
-let projectIDCounter = 2;
+// A project and its todos must share the same id
 function assignIDForProject() {
-  const id = projectIDCounter.toString();
-  ++projectIDCounter;
-  return id;
+  let id = +storageGetIDCounter('projectIDCounter');
+  let incrementID = id + 1
+  storageSetItem('projectIDCounter', incrementID);
+  return id.toString();
 }
 function assignTodoProjectID() {
   const currentProject = storageGetCurrentProject();
@@ -189,11 +192,11 @@ function assignTodoProjectID() {
 
 
 // Every todo has a separate todoID to differentiate it from other todos
-let todoIDCounter = 3;
 function assignTodoID() {
-  const id = todoIDCounter.toString();
-  ++todoIDCounter;
-  return id;
+  let id = +storageGetIDCounter('todoIDCounter');
+  let incrementID = id + 1
+  storageSetItem('todoIDCounter', incrementID);
+  return id.toString();
 }
 
 
