@@ -13,6 +13,8 @@ import {
   createNewProject,
   createNewTodo,
   updateProjectData,
+  sortTodoListByStatus,
+  moveCheckedTodoInListOrder
 } from "./controller";
 
 
@@ -167,9 +169,10 @@ function displayTodoTabsOfCurrentProject() {
   const projectList = storageGetList('projectList');
   const todoList = storageGetList('todoList');
   const currentProject = storageGetCurrentProject('currentProject');
-  const todos = currentProject.id === projectList[0].id
+  let todos = currentProject.id === projectList[0].id
     ? todoList
     : findTodosForSelectProject(currentProject);
+  todos = sortTodoListByStatus(todos);
   for (const todo of todos) {
     const tab = document.createElement('div');
     const headerDiv = document.createElement('div');
@@ -220,6 +223,7 @@ function displayTodoTabsOfCurrentProject() {
 
     checkbox.onclick = (event) => {
       toggleTodoStatus(event.target);
+      moveCheckedTodoInListOrder(event.target);
       displayTodoTabsOfCurrentProject();
     };
     editBtn.onclick = (event) => {

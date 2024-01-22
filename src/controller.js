@@ -177,6 +177,23 @@ function createNewTodo(title, dueDate, note, priority) {
   newTodo.addToList();
 }
 
+function sortTodoListByStatus(todos) {
+  const openTodos = todos.filter((todo) => todo.status === 'open');
+  const closedTodos = todos.filter((todo) => todo.status === 'closed');
+  const sortedList = [...openTodos, ...closedTodos];
+  return sortedList;
+}
+
+function moveCheckedTodoInListOrder(node) {
+  const todoObj = returnTodoObj(node);
+  const todoList = storageGetList('todoList');
+  const index = findIndexOfTodoInMasterList(todoList, todoObj);
+  todoList.splice(index, 1);
+  if (todoObj.status === 'closed') todoList.push(todoObj);
+  if (todoObj.status === 'open') todoList.unshift(todoObj);
+  storageSetItem('todoList', todoList);
+}
+
 
 // A project and its todos must share the same id
 function assignIDForProject() {
@@ -218,6 +235,8 @@ export {
   removeDataOfDeletedProject,
   createNewProject,
   createNewTodo,
+  sortTodoListByStatus,
+  moveCheckedTodoInListOrder,
   assignIDForProject,
   assignTodoProjectID,
   assignTodoID
