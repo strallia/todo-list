@@ -1,6 +1,6 @@
-import { currentProject, projectList } from "./project";
-import { todoList } from "./todo";
 import { 
+  storageGetList,
+  storageGetCurrentProject,
   findTodosForSelectProject,
   returnTodoObj,
   returnProjectObj,
@@ -13,11 +13,10 @@ import {
   createNewProject,
   createNewTodo,
   updateProjectData,
-  updateTodosProjectValue
 } from "./controller";
 
 
-// HELPER FUNCTIONS
+// DOM HELPER FUNCTIONS
 function clearContent(node) {
   node.textContent = '';
 }
@@ -34,6 +33,7 @@ const projectsDiv = document.querySelector('.projects');
 
 function displayProjectTabs() {
   clearContent(projectsDiv);
+  const projectList = storageGetList('projectList');
   for (const project of projectList) {
     const tab = document.createElement('div');
     const titlePara = document.createElement('p');
@@ -65,6 +65,7 @@ function displayProjectTabs() {
       displayProjectTabs();
 
       const deletedProjectID = event.target.getAttribute('data-id');
+      const currentProject = storageGetCurrentProject();
       if (currentProject.id === deletedProjectID) {
         const defaultProjectNode = projectsDiv.firstChild;
         setCurrentProject(defaultProjectNode);
@@ -128,10 +129,6 @@ function openProjectEditModal(btnNode) {
     event.preventDefault();
     if (!form.checkValidity()) return form.reportValidity();
 
-    // update the todos project name
-    const newTitle = titleInput.value;
-    updateTodosProjectValue(projectObj, newTitle);
-
     // update project data in master list
     updateProjectData(
       projectObj,
@@ -167,7 +164,10 @@ const todosDiv = document.querySelector('.todos');
 
 function displayTodoTabsOfCurrentProject() {
   clearContent(todosDiv);
-  const todos = currentProject === projectList[0] 
+  const projectList = storageGetList('projectList');
+  const todoList = storageGetList('todoList');
+  const currentProject = storageGetCurrentProject('currentProject');
+  const todos = currentProject.id === projectList[0].id
     ? todoList
     : findTodosForSelectProject(currentProject);
   for (const todo of todos) {
@@ -209,7 +209,9 @@ function displayTodoTabsOfCurrentProject() {
     viewModeBtn.textContent = '▼';
 
     checkbox.onclick = (event) => {
-      toggleTodoStatus(event.target);
+      const node = event.target;
+      const checkedStatus = node.checked;
+      toggleTodoStatus(node, checkedStatus);
     };
     editBtn.onclick = (event) => {
       openTodoEditModal(event.target);
