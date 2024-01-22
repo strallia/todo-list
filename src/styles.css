@@ -93,7 +93,10 @@ div.todos {
   }
   .medium-priority {
     border-left: 3px solid orange;
-}
+  }
+  .dim {
+    filter: grayscale(1) brightness(80%);
+  }
 }
 
 

@@ -16,6 +16,7 @@ const todoList = [
     '2024-01-31',
     'Notes show here',
     'high',
+    'closed'
   ),
   createTodo(
     '1',

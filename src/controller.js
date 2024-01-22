@@ -19,7 +19,8 @@ function storageGetList(listString) {
       const dueDate = plainObj.dueDate;
       const note = plainObj.note;
       const priority = plainObj.priority;
-      return createTodo(projectID, todoID, title, dueDate, note, priority);
+      const status = plainObj.status;
+      return createTodo(projectID, todoID, title, dueDate, note, priority, status);
     }
   })
   return instantiatedList;
@@ -117,7 +118,7 @@ function returnNodeListOfTodoTabs() {
   return [...nodeList];
 }
 
-function toggleTodoStatus(node, checkedStatus) {
+function toggleTodoStatus(node) {
   const todoObj = returnTodoObj(node);
   let newStatus;
   if (node.checked) {
@@ -137,11 +138,7 @@ function toggleTodoStatus(node, checkedStatus) {
   const todoList = storageGetList('todoList');
   const index = findIndexOfTodoInMasterList(todoList, todoObj)
   todoList[index] = updatedObj;
-
-  // ISSUE WITH STATUS NOT UPDATING
-  // console.log(todoList);
   storageSetItem('todoList', todoList);
-  // console.log(storageGetList('todoList'));  
 }
 
 function removeTodoFromList(node) {

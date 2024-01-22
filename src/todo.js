@@ -25,8 +25,8 @@ class TodoItem {
   }
 }
 
-function createTodo(projectID, todoID, title, dueDate, note, priority) {
-  return new TodoItem(projectID, todoID, title, dueDate, note, priority);
+function createTodo(projectID, todoID, title, dueDate, note, priority, status) {
+  return new TodoItem(projectID, todoID, title, dueDate, note, priority, status);
 }
 
 export { createTodo };

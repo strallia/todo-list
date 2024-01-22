@@ -195,11 +195,6 @@ function displayTodoTabsOfCurrentProject() {
     editBtn.classList.add('edit');
     deleteBtn.classList.add('delete');
     viewModeBtn.classList.add('view-mode', 'down');
-    if (todo.priority === 'high') {
-      tab.classList.add('high-priority');
-    } else if (todo.priority === 'medium') {
-      tab.classList.add('medium-priority');
-    }
 
     tab.setAttribute('data-todo-id', todo.todoID);
     viewModeBtn.setAttribute('data-todo-id', todo.todoID);
@@ -208,15 +203,24 @@ function displayTodoTabsOfCurrentProject() {
     checkbox.setAttribute('type', 'checkbox');
     checkbox.setAttribute('name', 'checkbox');
     checkbox.setAttribute('data-todo-id', todo.todoID);
+    
+    if (todo.priority === 'high') {
+      tab.classList.add('high-priority');
+    } else if (todo.priority === 'medium') {
+      tab.classList.add('medium-priority');
+    }
+    if (todo.status === 'closed') {
+      checkbox.checked = true;
+      tab.classList.add('dim');
+    }
 
     editBtn.textContent = 'Edit';
     deleteBtn.textContent = 'X';
     viewModeBtn.textContent = '▼';
 
     checkbox.onclick = (event) => {
-      const node = event.target;
-      const checkedStatus = node.checked;
-      toggleTodoStatus(node, checkedStatus);
+      toggleTodoStatus(event.target);
+      displayTodoTabsOfCurrentProject();
     };
     editBtn.onclick = (event) => {
       openTodoEditModal(event.target);
