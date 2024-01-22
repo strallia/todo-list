@@ -6,6 +6,7 @@ import {
   displayProjectTabs, 
   displayTodoTabsOfCurrentProject,
 } from "./dom.js";
+import { storageGetList, storageSetItem } from "./controller.js";
 
 
 // INITIALIZE LOCAL STORAGE
@@ -58,6 +59,8 @@ if (!localStorage.length) {
 
 
 // RENDER DEFAULT UI
+const defaultProject = storageGetList('projectList')[0];
+storageSetItem('currentProject', defaultProject);
 displayTodoTabsOfCurrentProject();
 displayProjectTabs();
 colorProjectTab(document.querySelector('.projects div:first-of-type'));
