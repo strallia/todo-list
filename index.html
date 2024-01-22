@@ -20,8 +20,8 @@
   <dialog class="add-project">
     <form>
       <div>
-        <label for="title">Title</label>
-        <input id="title" type="text" name="title">
+        <label for="title" class="required">Title</label>
+        <input id="title" type="text" name="title" required>
       </div>
       <div>
         <label for="description">Description</label>
@@ -34,8 +34,8 @@
   <dialog class="add-todo">
     <form>
       <div>
-        <label for="title">Title</label>
-        <input id="title" type="text" name="title">
+        <label for="title" class="required">Title</label>
+        <input id="title" type="text" name="title" required>
       </div>
       <div>
         <label for="due-date">Due</label>
@@ -48,9 +48,9 @@
       <div>
         <label for="priority">Priority</label>
         <select id="priority" name="priority">
+          <option value="low" selected>Low</option>
+          <option value="medium">Medium</option>
           <option value="high">High</option>
-          <option value="medium" selected>Medium</option>
-          <option value="low">Low</option>
         </select>
       </div>
       <button type="submit">Submit</button>
