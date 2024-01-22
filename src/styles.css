@@ -88,7 +88,12 @@ div.todos {
     transform: rotate(180deg);
     }
   }
-  
+  .high-priority {
+      border-left: 3px solid red;
+  }
+  .medium-priority {
+    border-left: 3px solid orange;
+}
 }
 
 

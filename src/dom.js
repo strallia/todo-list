@@ -195,6 +195,11 @@ function displayTodoTabsOfCurrentProject() {
     editBtn.classList.add('edit');
     deleteBtn.classList.add('delete');
     viewModeBtn.classList.add('view-mode', 'down');
+    if (todo.priority === 'high') {
+      tab.classList.add('high-priority');
+    } else if (todo.priority === 'medium') {
+      tab.classList.add('medium-priority');
+    }
 
     tab.setAttribute('data-todo-id', todo.todoID);
     viewModeBtn.setAttribute('data-todo-id', todo.todoID);
