@@ -53,9 +53,9 @@ function displayProjectTabs() {
 
     titlePara.textContent = project.title;
 
-    titlePara.onclick = (event) => {
-      setCurrentProject(event.target.parentNode);
-      colorProjectTab(event.target.parentNode);
+    tab.onclick = (event) => {
+      setCurrentProject(event.target);
+      colorProjectTab(event.target);
       displayTodoTabsOfCurrentProject();
     };
     editBtn.onclick = (event) => {

@@ -46,7 +46,7 @@ div.content {
     top: 0;
     background-color: var(--navy);
   }
-  h1:before {
+  h1::before {
     content: url('./assets/icons/list.png');
     zoom: 8%;
     filter: invert(1);
@@ -136,6 +136,7 @@ div.projects {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      pointer-events: none;
     }
     button.edit:hover {
       filter: invert(13%) sepia(34%) saturate(872%) hue-rotate(157deg) brightness(97%) contrast(97%);
