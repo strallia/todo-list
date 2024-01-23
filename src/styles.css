@@ -29,7 +29,6 @@ div.content {
 .container-menu {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  gap: 20px;
   text-align: center;
   background-color: var(--navy);
   color: var(--sand);
@@ -43,10 +42,7 @@ div.content {
     align-items: center;
     gap: 10px;
     padding: 20px;
-    border-bottom: 1px solid var(--sand);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     color: var(--sand);
-    position: sticky;
     top: 0;
     background-color: var(--navy);
   }
@@ -54,14 +50,6 @@ div.content {
     content: url('./assets/icons/list.png');
     zoom: 8%;
     filter: invert(1);
-  }
-  .container-options {
-    display: grid;
-    gap: 10px;
-    padding: 20px 20px 0 20px;
-    button {
-      padding: 10px;
-    }
   }
   .container-projects {
     display: grid;
@@ -105,6 +93,7 @@ div.content {
     color: var(--wheat);
     font-size: 0.8em;
     padding-bottom: 10px;
+    padding-top: 10px;
     a,
     a:visited {
       color: inherit;
@@ -231,6 +220,8 @@ dialog {
   border: none;
   background-color: rgba(0,0,0,0.4);
   backdrop-filter: blur(5px);
+  z-index: 2;
+  
   form {
     position: absolute;
     top: 50%;
