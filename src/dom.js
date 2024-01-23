@@ -15,6 +15,7 @@ import {
   updateProjectData,
   sortTodoListByStatus,
   moveCheckedTodoInListOrder,
+  filterTodoListForToday,
 } from "./controller";
 
 
@@ -206,9 +207,14 @@ function displayTodoTabsOfCurrentProject() {
   const projectList = storageGetList('projectList');
   const todoList = storageGetList('todoList');
   const currentProject = storageGetCurrentProject('currentProject');
-  let todos = currentProject.id === projectList[0].id
-    ? todoList
-    : findTodosForSelectProject(currentProject);
+  let todos;
+  if (currentProject.id === projectList[0].id) {  
+    todos = todoList
+  } else if (currentProject.id === projectList[1].id) {
+    todos = filterTodoListForToday(todoList);
+  } else {
+    todos = findTodosForSelectProject(currentProject);
+  }
   todos = sortTodoListByStatus(todos);
   for (const todo of todos) {
     const tab = document.createElement('div');

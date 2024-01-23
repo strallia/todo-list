@@ -15,15 +15,15 @@ if (!localStorage.length) {
   const todoList = [
     createTodo(
       '2',
-      '1',
+      '0',
       'First Todo Item for Sub-project',
-      '2024-01-16',
+      '2024-01-23',
       'Some random note for this todo',
       'medium',
     ),
     createTodo(
       '2',
-      '2',
+      '1',
       'Second Todo Item for Sub-project',
       '2024-02-22',
       'Things I gotta remember about this task',

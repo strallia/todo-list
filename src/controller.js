@@ -184,6 +184,26 @@ function sortTodoListByStatus(todos) {
   return sortedList;
 }
 
+function filterTodoListForToday(todos) {
+  const date = new Date();
+  const yyyy = date.getFullYear().toString();
+  let mm = (date.getMonth() + 1).toString();
+  let dd = date.getDate().toString();
+
+  if (mm.length === 1) {
+    mm = '0' + mm.toString();
+  }
+  if (dd.length === 1) {
+    dd = '0' + dd.toString();
+  }
+  const today = yyyy + '-' + mm + '-' + dd;
+  
+  const filteredList = todos.filter((todo) => {
+    return todo.dueDate === today;
+  })
+  return filteredList;
+}
+
 function moveCheckedTodoInListOrder(node) {
   const todoObj = returnTodoObj(node);
   const todoList = storageGetList('todoList');
@@ -236,6 +256,7 @@ export {
   createNewProject,
   createNewTodo,
   sortTodoListByStatus,
+  filterTodoListForToday,
   moveCheckedTodoInListOrder,
   assignIDForProject,
   assignTodoProjectID,
