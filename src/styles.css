@@ -127,7 +127,7 @@ div.projects {
     padding: 10px;
     display: flex;
     border-radius: 10px;
-    gap: 12px;
+    gap: 8px;
     
     p {
       width: 190px;
@@ -241,11 +241,11 @@ div.todos {
 button{
   background-color: transparent;
   border: none;
-  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-content: center;
   cursor: pointer;
+  padding: 5px;
 }
 button.edit::after {
   content: url('./assets/icons/edit.png');

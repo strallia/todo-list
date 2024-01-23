@@ -62,7 +62,7 @@ function displayProjectTabs() {
       openProjectEditModal(event.target);
     };
     deleteBtn.onclick = (event) => {
-      removeDataOfDeletedProject(event.target.parentNode); 
+      removeDataOfDeletedProject(event.target); 
       displayProjectTabs();
 
       const deletedProjectID = event.target.getAttribute('data-id');
@@ -78,6 +78,7 @@ function displayProjectTabs() {
         colorProjectTab(currentProjectNode);
       }
       displayTodoTabsOfCurrentProject();
+      event.stopPropagation();
     };
 
     tab.appendChild(titlePara);
