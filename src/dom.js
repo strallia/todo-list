@@ -44,6 +44,7 @@ function displayProjectTabs() {
 
     tab.classList.add('tab');
     editBtn.classList.add('edit');
+    deleteBtn.classList.add('delete');
 
     tab.setAttribute('data-id', project.id);
     tab.setAttribute('data-status', '');
@@ -51,8 +52,6 @@ function displayProjectTabs() {
     editBtn.setAttribute('data-id', project.id);
 
     titlePara.textContent = project.title;
-    deleteBtn.textContent = 'X';
-    editBtn.textContent = 'Edit';
 
     titlePara.onclick = (event) => {
       setCurrentProject(event.target.parentNode);
@@ -217,8 +216,6 @@ function displayTodoTabsOfCurrentProject() {
       tab.classList.add('dim');
     }
 
-    editBtn.textContent = 'Edit';
-    deleteBtn.textContent = 'X';
     viewModeBtn.textContent = '▼';
 
     checkbox.onclick = (event) => {

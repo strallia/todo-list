@@ -6,13 +6,27 @@
   <title>Todo List</title>
 </head>
 <body>
-  <header>Todo List</header>
   <div class="content">
-    <div class="container">
-      <div class="projects"></div>
-      <button class="add-project">Add Project</button>
+    <div class="container-menu">
+      <div>
+        <h1>Todo</h1>
+        <div class="container-options">
+          <button class="today">Today</button>
+          <button class="all-todos">All Todos</button>
+        </div>
+      </div>
+      <div class="container-projects">
+        <h3>
+          Projects
+          <button class="add-project">+</button>
+        </h3>
+        <div class="projects"></div>
+      </div>
+      <footer>
+        created by <a href="https://github.com/strallia/todo-list">strallia</a>
+      </footer>
     </div>
-    <div class="container">
+    <div class="container-todos">
       <div class="todos"></div>
       <button class="add-todo">Add Todo</button>
     </div>
@@ -57,8 +71,5 @@
       <button type="reset">Close</button>
     </form>
   </dialog>
-  <footer>
-    created by <a href="https://github.com/strallia/todo-list">strallia</a>
-  </footer>
 </body>
 </html>
