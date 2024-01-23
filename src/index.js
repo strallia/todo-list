@@ -3,6 +3,7 @@ import { createProject } from "./project.js";
 import './styles.css';
 import { 
   colorProjectTab,
+  displayDefaultProjectTabs,
   displayProjectTabs, 
   displayTodoTabsOfCurrentProject,
 } from "./dom.js";
@@ -61,6 +62,7 @@ if (!localStorage.length) {
 
 
 // RENDER DEFAULT UI
+displayDefaultProjectTabs();
 const defaultProject = storageGetList('projectList')[0];
 storageSetItem('currentProject', defaultProject);
 displayTodoTabsOfCurrentProject();

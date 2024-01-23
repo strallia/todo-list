@@ -55,7 +55,7 @@ div.content {
   h1, h3, p {
     user-select: none;
   }
-  .container-filtered-options {
+  .container-default-projects {
     display: flex;
     flex-direction: column;
     text-align: left;

@@ -14,7 +14,7 @@ import {
   createNewTodo,
   updateProjectData,
   sortTodoListByStatus,
-  moveCheckedTodoInListOrder
+  moveCheckedTodoInListOrder,
 } from "./controller";
 
 
@@ -30,12 +30,34 @@ function appendChildren(node, childrenArr) {
 }
 
 
+// FILTERED PROJECT OPTIONS
+const defaultProjectsDiv = document.querySelector('.container-default-projects');
+
+function displayDefaultProjectTabs() {
+  const allTodosTab = defaultProjectsDiv.querySelector('.all-todos');
+  const todayTab = defaultProjectsDiv.querySelector('.today');
+
+  allTodosTab.setAttribute('data-id', '0');
+  todayTab.setAttribute('data-id', '1');
+
+  allTodosTab.onclick = (event) => {
+    setCurrentProject(event.target);
+    colorProjectTab(event.target);
+    displayTodoTabsOfCurrentProject();
+    displayProjectTabs();
+  };
+  todayTab.onclick = () => {
+    console.log('today clicked')
+  }
+}
+
+
 // PROJECT LIST
 const projectsDiv = document.querySelector('.projects');
 
 function displayProjectTabs() {
   clearContent(projectsDiv);
-  const projectList = storageGetList('projectList');
+  const projectList = storageGetList('projectList').slice(1);  // exclude default projects
   for (const project of projectList) {
     const tab = document.createElement('div');
     const titlePara = document.createElement('p');
@@ -82,15 +104,13 @@ function displayProjectTabs() {
     };
 
     tab.appendChild(titlePara);
-    if (project !== projectList[0]) {
-      appendChildren(tab, [editBtn, deleteBtn]);
-    }
+    appendChildren(tab, [editBtn, deleteBtn]);
     projectsDiv.appendChild(tab);
   };
 }
 
 function colorProjectTab(projectTabNode) {
-  const allProjectTabs = document.querySelectorAll('.projects > *');
+  const allProjectTabs = document.querySelectorAll('.container-menu .tab');
   for (const tab of allProjectTabs) {
     tab.setAttribute('data-status', '');
   }
@@ -490,6 +510,7 @@ resetTodoBtn.onclick = () => {
 
 
 export { 
+  displayDefaultProjectTabs,
   displayProjectTabs, 
   colorProjectTab,
   displayTodoTabsOfCurrentProject
