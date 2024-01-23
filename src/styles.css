@@ -51,6 +51,9 @@ div.content {
     zoom: 8%;
     filter: invert(1);
   }
+  h1, h3, p {
+    user-select: none;
+  }
   .container-projects {
     display: grid;
     grid-template-rows: auto 1fr;
@@ -71,23 +74,9 @@ div.content {
       z-index: 1;
     }
     button.add-project {
+      color: inherit;
       font-size: 1.5em;
     }
-    .add-project:hover {
-      background-color: transparent;
-    }
-  }
-  button {
-    border-radius: 10px;
-    background-color: transparent;
-    border: none;
-    color: inherit;
-    text-align: left;
-    font-size: 1.2em;
-  }
-  button:hover {
-    background-color: var(--seagreen);
-    font-weight: bold;
   }
   footer {
     color: var(--wheat);
@@ -114,18 +103,11 @@ div.content {
     flex-direction: column;
     justify-content: center;
     margin-bottom: 20px;
+    color: var(--navy);
+    p {
+      color: var(--seagreen)
+    }
   }
-}
-
-
-/* EDIT and DELETE BUTTONS */
-button.edit:after {
-  content: url('./assets/icons/edit.png');
-  zoom: 3%;
-}
-button.delete:after {
-  content: url('./assets/icons/delete.png');
-  zoom: 3%;
 }
 
 
@@ -143,7 +125,7 @@ div.projects {
     padding: 10px;
     display: flex;
     border-radius: 10px;
-    gap: 8px;
+    gap: 12px;
     
     p {
       width: 190px;
@@ -158,15 +140,11 @@ div.projects {
       color: var(--navy);
       font-weight: bold;
     }
-    button {
-      height: min-content;
-      padding: 0;
+    button.edit:hover {
+      filter: invert(13%) sepia(34%) saturate(872%) hue-rotate(157deg) brightness(97%) contrast(97%);
     }
-    button:hover {
-      font-weight: normal;
-    }
-    button.edit:after,
-    button.delete:after {
+    button.edit::after,
+    button.delete::after {
       filter: invert(1);
     }
   }
@@ -180,12 +158,11 @@ div.projects {
 /* TODO LIST */
 div.todos {
   .tab {
-    background-color: lightgoldenrodyellow;
-    border: 1px dashed orange;
+    border-bottom: 1px solid var(--navy);
     padding: 5px;
     display: grid;
     grid-template-columns: auto 1fr auto;
-    gap: 5px;
+    gap: 15px;
     align-items: center;
 
     .details {
@@ -198,24 +175,33 @@ div.todos {
     .buttons {
       display: flex;
       justify-content: space-between;
-      gap: 5px;
+      gap: 12px;
+      align-items: center;
+      justify-items: center;
     }
     .note {
     background-color: whitesmoke;
     border: 1px solid grey;
     }
     button {
-      height: min-content;
+      filter: contrast(5%);
+    }
+    button.edit:hover,
+    button.view-mode:hover {
+      filter: invert(28%) sepia(64%) saturate(1046%) hue-rotate(141deg) brightness(92%) contrast(102%);
+    }
+    button.delete:hover {
+      filter: invert(53%) sepia(65%) saturate(574%) hue-rotate(324deg) brightness(95%) contrast(105%);
     }
     .hidden {
       display: none;
     }
     button.view-mode.up {
-    transform: rotate(180deg);
+      transform: rotate(180deg);
     }
   }
   .high-priority {
-      border-left: 3px solid red;
+    border-left: 3px solid red;
   }
   .medium-priority {
     border-left: 3px solid orange;
@@ -223,6 +209,40 @@ div.todos {
   .dim {
     filter: grayscale(1) brightness(80%);
   }
+}
+
+
+/* EDIT and DELETE BUTTONS */
+button{
+  background-color: transparent;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  cursor: pointer;
+}
+button.edit::after {
+  content: url('./assets/icons/edit.png');
+  zoom: 3.5%;
+}
+button.delete::after {
+  content: url('./assets/icons/delete.png');
+  zoom: 3.5%;
+}
+button.view-mode::after {
+  content: url('./assets/icons/arrow.png');
+  zoom: 2.5%;
+}
+button.add-project:hover {
+  font-weight: bold;
+}
+button.edit:hover,
+button.add-project:hover {
+  filter: invert(27%) sepia(8%) saturate(3459%) hue-rotate(139deg) brightness(87%) contrast(95%);
+}
+button.delete:hover {
+  filter: invert(53%) sepia(65%) saturate(574%) hue-rotate(324deg) brightness(95%) contrast(105%);
 }
 
 
@@ -243,7 +263,7 @@ dialog {
     background-color: white;
     padding: 20px;
   }
-  label.required:after {
+  label.required::after {
     content: ' *';
     color: red;
   }

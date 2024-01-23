@@ -230,8 +230,6 @@ function displayTodoTabsOfCurrentProject() {
       tab.classList.add('dim');
     }
 
-    viewModeBtn.textContent = '▼';
-
     checkbox.onclick = (event) => {
       toggleTodoStatus(event.target);
       moveCheckedTodoInListOrder(event.target);
