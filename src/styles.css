@@ -224,12 +224,12 @@ div.todos {
   }
   .checked {
     border-left: none;
-    color: lightgrey;
     p.title {
       text-decoration: line-through;
     }
     button.edit,
-    button.view-mode {
+    button.view-mode,
+    .due-date {
       display: none;
     }
   }
