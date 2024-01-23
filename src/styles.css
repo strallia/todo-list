@@ -36,6 +36,7 @@ div.content {
   height: 100vh;
   overflow-y: auto;
   gap: 20px;
+  grid-template-columns: 330px;
 
   h1 {
     font-size: 2.5em;
@@ -172,7 +173,6 @@ div.projects {
     height: 40px;
     
     p {
-      width: 190px;
       text-align: left;
       margin-right: auto;
       white-space: nowrap;
