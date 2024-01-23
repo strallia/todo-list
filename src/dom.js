@@ -227,7 +227,7 @@ function displayTodoTabsOfCurrentProject() {
     }
     if (todo.status === 'closed') {
       checkbox.checked = true;
-      tab.classList.add('dim');
+      tab.classList.add('checked');
     }
 
     checkbox.onclick = (event) => {
