@@ -160,10 +160,24 @@ function openProjectEditModal(btnNode) {
 }
 
 
+// TODO HEADER
+const todoHeader = document.querySelector('.container-todos > header')
+function displayTodoHeaderContent() {
+  const h1 = todoHeader.querySelector('h1');
+  const para = todoHeader.querySelector('p');
+
+  const currentProject = storageGetCurrentProject();
+
+  h1.textContent = currentProject.title;
+  para.textContent = currentProject.description;
+}
+
+
 // TODO LIST
 const todosDiv = document.querySelector('.todos');
 
 function displayTodoTabsOfCurrentProject() {
+  displayTodoHeaderContent();
   clearContent(todosDiv);
   const projectList = storageGetList('projectList');
   const todoList = storageGetList('todoList');

@@ -101,7 +101,20 @@ div.content {
   }
 }
 .container-todos {
-  border: 1px solid purple;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 20px;
+  min-width: 300px;
+
+  > header {
+    flex-basis: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
 }
 
 
@@ -221,7 +234,7 @@ dialog {
   background-color: rgba(0,0,0,0.4);
   backdrop-filter: blur(5px);
   z-index: 2;
-  
+
   form {
     position: absolute;
     top: 50%;
