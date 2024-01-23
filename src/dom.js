@@ -57,6 +57,7 @@ function displayDefaultProjectTabs() {
 
 
 // PROJECT LIST
+const containerMenu = document.querySelector('.container-menu');
 const projectsDiv = document.querySelector('.projects');
 
 function displayProjectTabs() {
@@ -94,11 +95,11 @@ function displayProjectTabs() {
       const deletedProjectID = event.target.getAttribute('data-id');
       const currentProject = storageGetCurrentProject();
       if (currentProject.id === deletedProjectID) {
-        const defaultProjectNode = projectsDiv.firstChild;
+        const defaultProjectNode = containerMenu.querySelector('.tab.all-todos');
         setCurrentProject(defaultProjectNode);
         colorProjectTab(defaultProjectNode);
       } else {
-        const currentProjectNode = projectsDiv.querySelector(
+        const currentProjectNode = containerMenu.querySelector(
           `.tab[data-id="${currentProject.id}"]`
         );
         colorProjectTab(currentProjectNode);
