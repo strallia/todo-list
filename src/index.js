@@ -14,16 +14,7 @@ import { setCurrentProject, storageGetList, storageSetItem } from "./controller.
 if (!localStorage.length) {
   const todoList = [
     createTodo(
-      '0',
-      '0',
-      'Default Todo',
-      '2024-01-31',
-      'Notes show here',
-      'high',
-      'closed'
-    ),
-    createTodo(
-      '1',
+      '2',
       '1',
       'First Todo Item for Sub-project',
       '2024-01-16',
@@ -31,7 +22,7 @@ if (!localStorage.length) {
       'medium',
     ),
     createTodo(
-      '1',
+      '2',
       '2',
       'Second Todo Item for Sub-project',
       '2024-02-22',
@@ -42,11 +33,16 @@ if (!localStorage.length) {
   const projectList = [
     createProject(
       '0',
-      "All My Todos", 
-      "Project containing all my todo's"
+      "All Todos", 
+      ""
     ),
     createProject(
       '1',
+      "Today's Todos", 
+      ""
+    ),
+    createProject(
+      '2',
       "Another Project", 
       "Project containing todos for another project"
     ),
@@ -56,8 +52,8 @@ if (!localStorage.length) {
   localStorage.setItem('todoList', JSON.stringify(todoList));
   localStorage.setItem('projectList', JSON.stringify(projectList));
   localStorage.setItem('currentProject', JSON.stringify(currentProject));
-  localStorage.setItem('projectIDCounter', 2);
-  localStorage.setItem('todoIDCounter', 3);
+  localStorage.setItem('projectIDCounter', 3);
+  localStorage.setItem('todoIDCounter', 2);
 }
 
 

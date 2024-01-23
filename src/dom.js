@@ -46,8 +46,11 @@ function displayDefaultProjectTabs() {
     displayTodoTabsOfCurrentProject();
     displayProjectTabs();
   };
-  todayTab.onclick = () => {
-    console.log('today clicked')
+  todayTab.onclick = (event) => {
+    setCurrentProject(event.target);
+    colorProjectTab(event.target);
+    displayTodoTabsOfCurrentProject();
+    displayProjectTabs();
   }
 }
 
@@ -57,7 +60,7 @@ const projectsDiv = document.querySelector('.projects');
 
 function displayProjectTabs() {
   clearContent(projectsDiv);
-  const projectList = storageGetList('projectList').slice(1);  // exclude default projects
+  const projectList = storageGetList('projectList').slice(2);  // exclude default projects
   for (const project of projectList) {
     const tab = document.createElement('div');
     const titlePara = document.createElement('p');
