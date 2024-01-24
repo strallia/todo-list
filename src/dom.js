@@ -224,7 +224,6 @@ function displayTodoTabsOfCurrentProject() {
     const dueDatePara = document.createElement('div');
     const detailsDiv = document.createElement('div');
     const notePara = document.createElement('p');
-    const priorityPara = document.createElement('p');
     const btnsDiv = document.createElement('div');
     const editBtn = document.createElement('button');
     const deleteBtn = document.createElement('button');
@@ -237,7 +236,6 @@ function displayTodoTabsOfCurrentProject() {
     dueDatePara.classList.add('due-date');
     detailsDiv.classList.add('details', 'hidden');
     notePara.classList.add('note');
-    priorityPara.classList.add('priority');
     btnsDiv.classList.add('buttons');
     editBtn.classList.add('edit');
     deleteBtn.classList.add('delete');
@@ -280,7 +278,7 @@ function displayTodoTabsOfCurrentProject() {
 
     appendChildren(headerDiv, [titlePara, dueDatePara]);
     appendChildren(btnsDiv, [editBtn, deleteBtn, viewModeBtn]);
-    appendChildren(detailsDiv, [notePara, priorityPara]);
+    appendChildren(detailsDiv, [notePara]);
     appendChildren(tab, [
       checkbox, 
       headerDiv,
@@ -300,7 +298,6 @@ function displayTodoDetails() {
     const titlePara = todoNode.querySelector('.title');
     const dueDatePara = todoNode.querySelector('.due-date');
     const notePara = todoNode.querySelector('.note');
-    const priorityPara = todoNode.querySelector('.priority');
     
     const formatDueDate = () => {
       const date = (todoObj.dueDate).split('-');
@@ -316,7 +313,6 @@ function displayTodoDetails() {
       dueDatePara.textContent = formatDueDate();
     }
     notePara.textContent = todoObj.note;
-    priorityPara.textContent = 'Priority: ' + todoObj.priority;
   }
 }
 
