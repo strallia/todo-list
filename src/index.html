@@ -35,42 +35,52 @@
   </div>
   <dialog class="add-project">
     <form>
-      <div>
-        <label for="title" class="required">Title</label>
-        <input id="title" type="text" name="title" required>
+      <h1>New Project</h1>
+      <div class="inputs">
+        <div>
+          <label for="title" class="required">Title</label>
+          <input id="title" type="text" name="title" required maxlength="30">
+        </div>
+        <div>
+          <label for="description">Description</label>
+          <textarea id="description" name="description" maxlength="150"></textarea>
+        </div>
+        <div class="buttons">
+          <button type="submit">Submit</button>
+          <button type="reset">Close</button>
+        </div>
       </div>
-      <div>
-        <label for="description">Description</label>
-        <textarea id="description" name="description"></textarea>
-      </div>
-      <button type="submit">Submit</button>
-      <button type="reset">Close</button>
     </form>
   </dialog>
   <dialog class="add-todo">
     <form>
-      <div>
-        <label for="title" class="required">Title</label>
-        <input id="title" type="text" name="title" required>
+      <h1>New Todo</h1>
+      <div class="inputs">
+        <div>
+          <label for="title" class="required">Title</label>
+          <input id="title" type="text" name="title" required maxlength="50">
+        </div>
+        <div>
+          <label for="due-date">Due</label>
+          <input id="due-date" type="date" name="due-date">
+        </div>
+        <div>
+          <label for="note">Note</label>
+          <textarea id="note" name="note" maxlength="200"></textarea>
+        </div>
+        <div>
+          <label for="priority">Priority</label>
+          <select id="priority" name="priority">
+            <option value="low" selected>Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <div class="buttons">
+          <button type="submit">Submit</button>
+          <button type="reset">Close</button>
+        </div>
       </div>
-      <div>
-        <label for="due-date">Due</label>
-        <input id="due-date" type="date" name="due-date">
-      </div>
-      <div>
-        <label for="note">Note</label>
-        <textarea id="note" name="note"></textarea>
-      </div>
-      <div>
-        <label for="priority">Priority</label>
-        <select id="priority" name="priority">
-          <option value="low" selected>Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-      </div>
-      <button type="submit">Submit</button>
-      <button type="reset">Close</button>
     </form>
   </dialog>
 </body>
