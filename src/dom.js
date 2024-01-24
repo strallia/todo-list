@@ -341,47 +341,25 @@ function toggleDisplayOfDetails(btnNode) {
 function openTodoEditModal(btnNode) {
   const todoObj = returnTodoObj(btnNode);
 
-  const body = document.querySelector('body');
-
-  const dialog = document.createElement('dialog');
-  const form = document.createElement('form');
-  const titleInput = document.createElement('input');
-  const dateInput = document.createElement('input');
-  const saveBtn = document.createElement('button');
-  const cancelBtn = document.createElement('button');
-  const noteInput = document.createElement('textarea');
-  const priorityContainer = document.createElement('div');
-  const priorityLabel = document.createElement('label');
-  const prioritySelect = document.createElement('select');
-  const priorityOptionLow = document.createElement('option');
-  const priorityOptionMedium = document.createElement('option');
-  const priorityOptionHigh = document.createElement('option');
-
-  dialog.classList.add('edit-todo');
-  noteInput.classList.add('note');
-  priorityContainer.classList.add('priority');
+  const dialog = document.querySelector('.edit-todo');
+  
+  const form = dialog.querySelector('form');
+  const titleInput = dialog.querySelector('input#title');
+  const dateInput = dialog.querySelector('input#due-date');
+  const noteInput = dialog.querySelector('textarea');
+  const prioritySelect = dialog.querySelector('select');
+  const priorityOptionLow = dialog.querySelector('[value="low"]');
+  const priorityOptionMedium = dialog.querySelector('[value="medium"]');
+  const priorityOptionHigh = dialog.querySelector('[value="high"]');
+  const saveBtn = dialog.querySelector('[type="submit"]');
+  const cancelBtn = dialog.querySelector('[type="reset"]');
   
   dialog.setAttribute('open', '');
-  titleInput.setAttribute('type', 'text');
   titleInput.setAttribute('value', `${todoObj.title}`);
-  titleInput.setAttribute('id', 'title');
-  titleInput.setAttribute('name', 'title');
-  titleInput.setAttribute('required', '');
-  dateInput.setAttribute('type', 'date');
   dateInput.setAttribute('value', `${todoObj.dueDate}`);
-  dateInput.setAttribute('id', 'due-date');
-  dateInput.setAttribute('name', 'due-date');
-  noteInput.setAttribute('id', 'note');
-  noteInput.setAttribute('name', 'note');
-  saveBtn.setAttribute('type', 'submit');
-  priorityLabel.setAttribute('for', 'priority');
-  prioritySelect.setAttribute('id', 'priority');
-  prioritySelect.setAttribute('name', 'priority');
-  priorityOptionLow.setAttribute('value', 'low');
-  priorityOptionMedium.setAttribute('value', 'medium');
-  priorityOptionHigh.setAttribute('value', 'high');
-  cancelBtn.setAttribute('type', 'reset');
 
+  noteInput.textContent = todoObj.note;
+  
   const currentPriority = todoObj.priority;
   let selectOption;
   if (currentPriority === 'low') {
@@ -393,14 +371,6 @@ function openTodoEditModal(btnNode) {
   };
   selectOption.setAttribute('selected','');
 
-  saveBtn.textContent = 'Save';
-  noteInput.textContent = todoObj.note;
-  priorityLabel.textContent = 'Priority';
-  priorityOptionLow.textContent = 'Low';
-  priorityOptionMedium.textContent = 'Medium';
-  priorityOptionHigh.textContent = 'High';
-  cancelBtn.textContent = 'Cancel';
-
   saveBtn.onclick = (event) => {
     event.preventDefault();
     if (!form.checkValidity()) return form.reportValidity();
@@ -411,26 +381,7 @@ function openTodoEditModal(btnNode) {
     displayTodoTabsOfCurrentProject();
     dialog.close();
   };
-  cancelBtn.onclick = () => {
-    dialog.close();
-  }
-
-  appendChildren(prioritySelect, [
-    priorityOptionLow,
-    priorityOptionMedium,
-    priorityOptionHigh
-  ]);
-  appendChildren(priorityContainer, [priorityLabel, prioritySelect]);
-  appendChildren(form, [
-    titleInput,
-    dateInput,
-    noteInput,
-    priorityContainer,
-    saveBtn,
-    cancelBtn
-  ]);
-  dialog.appendChild(form);
-  body.appendChild(dialog);
+  cancelBtn.onclick = () => dialog.close();
 }
 
 
