@@ -16,16 +16,16 @@ if (!localStorage.length) {
     createTodo(
       '2',
       '0',
-      'First Todo Item for Sub-project',
-      '2024-01-23',
-      'Some random note for this todo',
-      'medium',
+      'First todo item',
+      '2024-01-24',
+      'Notes for todo items show here',
+      'high',
     ),
     createTodo(
       '2',
       '1',
-      'Second Todo Item for Sub-project',
-      '2024-02-22',
+      'Second todo item',
+      '2024-03-18',
       'Things I gotta remember about this task',
       'medium',
     ),
@@ -43,8 +43,8 @@ if (!localStorage.length) {
     ),
     createProject(
       '2',
-      "Another Project", 
-      "Project containing todos for another project"
+      "Example Project", 
+      "This is where project descriptions go"
     ),
   ];
   const currentProject = projectList[0];
