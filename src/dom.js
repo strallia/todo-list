@@ -125,31 +125,16 @@ function colorProjectTab(projectTabNode) {
 function openProjectEditModal(btnNode) {
   const projectObj = returnProjectObj(btnNode);
 
-  const body = document.querySelector('body');
-
-  const dialog = document.createElement('dialog');
-  const form = document.createElement('form');
-  const titleInput = document.createElement('input');
-  const saveBtn = document.createElement('button');
-  const cancelBtn = document.createElement('button');
-  const descriptionInput = document.createElement('textarea');
-
-  dialog.classList.add('edit-project');
-  descriptionInput.classList.add('description');
+  const dialog = document.querySelector('.edit-project');
+  const form = dialog.querySelector('form');
+  const titleInput = dialog.querySelector('input#title');
+  const descriptionInput = dialog.querySelector('textarea');
+  const saveBtn = dialog.querySelector('[type="submit"]');
+  const cancelBtn = dialog.querySelector('[type="reset"]');
   
   dialog.setAttribute('open', '');
-  titleInput.setAttribute('type', 'text');
   titleInput.setAttribute('value', projectObj.title);
-  titleInput.setAttribute('id', 'title');
-  titleInput.setAttribute('name', 'title');
-  titleInput.setAttribute('required', '');
-  descriptionInput.setAttribute('id', 'note');
-  descriptionInput.setAttribute('name', 'note');
-  saveBtn.setAttribute('type', 'submit');
-  cancelBtn.setAttribute('type', 'reset');
 
-  saveBtn.textContent = 'Save';
-  cancelBtn.textContent = 'Cancel';
   descriptionInput.textContent = projectObj.description;
 
   saveBtn.onclick = (event) => {
@@ -171,18 +156,10 @@ function openProjectEditModal(btnNode) {
     colorProjectTab(editedProjectNode);
     displayTodoTabsOfCurrentProject();
 
+    form.reset();
     dialog.close();
   };
   cancelBtn.onclick = () => {dialog.close()};
-
-  appendChildren(form, [
-    titleInput,
-    descriptionInput,
-    saveBtn,
-    cancelBtn
-  ]);
-  dialog.appendChild(form);
-  body.appendChild(dialog);
 }
 
 
@@ -379,6 +356,7 @@ function openTodoEditModal(btnNode) {
       [titleInput, dateInput, noteInput, prioritySelect] 
     );
     displayTodoTabsOfCurrentProject();
+    form.reset();
     dialog.close();
   };
   cancelBtn.onclick = () => dialog.close();
