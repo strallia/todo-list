@@ -210,14 +210,17 @@ div.projects {
 
 /* TODO LIST */
 div.todos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   .tab {
-    border-bottom: 2px solid var(--wheat);
+    border: 2px solid var(--wheat);
     padding: 15px;
     display: grid;
     grid-template-columns: auto 1fr auto;
     gap: 15px;
     align-items: center;
-
+    border-radius: 10px;
     .details {
       grid-column: 1/4;
     }
@@ -257,13 +260,13 @@ div.todos {
     background-color: var(--wheat);
   }
   .high-priority {
-    border-left: 3px solid red;
+    border-left: 5px solid red;
   }
   .medium-priority {
-    border-left: 3px solid orange;
+    border-left: 5px solid orange;
   }
   .checked {
-    border-left: none;
+    border-left: 2px solid var(--wheat);
     p.title {
       text-decoration: line-through;
     }
@@ -309,13 +312,15 @@ button.delete:hover {
   filter: invert(53%) sepia(65%) saturate(574%) hue-rotate(324deg) brightness(95%) contrast(105%);
 }
 button.add-todo {
+  margin-top: 10px;
   padding: 15px;
-  border-bottom: 2px solid var(--wheat);
-  border-radius: 0;
+  border: 2px solid var(--wheat);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   font-size: 16px;
   color: var(--seagreen);
+  font-weight: bold;
 }
 button.add-todo::before {
   content: '+';
